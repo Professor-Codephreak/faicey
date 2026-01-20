@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Faicey - Advanced 3D Holographic Face</title>
+    <title>Faicey - Advanced 3D Holographic Face (Local)</title>
     <style>
         * {
             margin: 0;
@@ -211,7 +211,8 @@
         <p><strong>Persona:</strong> <span id="persona-name">Professor Codephreak</span></p>
         <p><strong>Expression:</strong> <span id="current-expression">coding</span></p>
         <p><strong>Mode:</strong> <span id="interaction-mode">Interactive</span></p>
-        <p><strong>Geometry:</strong> Spherical Triangulated</p>
+        <p><strong>Geometry:</strong> <span id="geometry-type">Spherical Triangulated</span></p>
+        <p><strong>Wireframe:</strong> <span id="wireframe-status">Visible</span></p>
         <p><strong>Vertices:</strong> <span id="vertex-count">120+</span></p>
         <p><strong>Morph Targets:</strong> <span id="morph-count">28</span></p>
         <p><strong>Personas:</strong> <span id="persona-count">5</span></p>
@@ -231,6 +232,22 @@
                 <option value="friendly-assistant">Friendly Assistant</option>
                 <option value="mysterious-oracle">Mysterious Oracle</option>
                 <option value="jaimla">Jaimla (Female ML Agent)</option>
+            </select>
+        </div>
+
+        <div class="control-group">
+            <label>Geometry Mode:</label>
+            <select id="geometry-mode">
+                <option value="skull" selected>3D Skull Wireframe</option>
+                <option value="spherical">Spherical Face</option>
+            </select>
+        </div>
+
+        <div class="control-group">
+            <label>Wireframe Lines:</label>
+            <select id="wireframe-visibility">
+                <option value="visible" selected>Visible</option>
+                <option value="hidden">Hidden</option>
             </select>
         </div>
 
@@ -443,6 +460,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
         let faceMesh, faceGroup, glowMesh;
         let clock, frameCount = 0, lastTime = Date.now();
         let currentPersona = 'professor-codephreak';
+        let currentGeometryMode = 'skull'; // 'skull' or 'spherical'
         let wireframeVisible = true; // Default: face visible with wireframe
 
         // Interaction state management
@@ -523,9 +541,9 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
             excited: { smile: 0.8, eyebrows_raised: 0.6, mouth_open: 0.4, eye_widen: 0.5 }
         };
 
-        // Morph target mapping - dynamic based on persona
+        // Morph target mapping - dynamic based on persona and geometry mode
         function getMorphMap() {
-            if (currentPersona === 'professor-codephreak') {
+            if (currentPersona === 'professor-codephreak' && currentGeometryMode === 'skull') {
                 // Skull morph targets (14 total)
                 return {
                     'smile': 0, 'frown': 1, 'mouth_open': 2, 'blink': 3, 'wink_left': 4,
@@ -555,73 +573,9 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
                     'jaw_clench': 25, 'tongue_out': 26, 'asymmetry': 27
                 };
             }
-        }
+        };
 
-        function init() {
-            console.log('🎭 Faicey Enhanced: Initializing...');
-            clock = new THREE.Clock();
-
-            // Create scene
-            scene = new THREE.Scene();
-            scene.background = new THREE.Color(0x000000);
-            scene.fog = new THREE.Fog(0x000000, 8, 20);
-
-            // Create camera
-            camera = new THREE.PerspectiveCamera(
-                60,
-                window.innerWidth / window.innerHeight,
-                0.1,
-                1000
-            );
-            camera.position.set(0, 0, 6);
-
-            // Create renderer
-            console.log('🎭 Faicey Enhanced: Creating WebGL renderer...');
-            renderer = new THREE.WebGLRenderer({ antialias: true });
-            renderer.setPixelRatio(window.devicePixelRatio);
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            document.getElementById('container').appendChild(renderer.domElement);
-            console.log('🎭 Faicey Enhanced: Renderer created and canvas added to DOM');
-
-            // Add lighting
-            const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-            scene.add(ambientLight);
-
-            const pointLight1 = new THREE.PointLight(0x00ff00, 1, 100);
-            pointLight1.position.set(5, 5, 5);
-            scene.add(pointLight1);
-
-            const pointLight2 = new THREE.PointLight(0x00ff00, 0.5, 100);
-            pointLight2.position.set(-5, -5, 5);
-            scene.add(pointLight2);
-
-            // Create face geometry with triangulation
-            console.log('🎭 Faicey Enhanced: Creating face geometry...');
-            createAdvancedFaceGeometry();
-            updateWireframeVisibility();
-            console.log('🎭 Faicey Enhanced: Face geometry created');
-
-            // Setup controls
-            controls = new OrbitControls(camera, renderer.domElement);
-            controls.enableDamping = true;
-            controls.dampingFactor = 0.05;
-            controls.minDistance = 4;
-            controls.maxDistance = 12;
-            controls.target.set(0, 0, 0);
-
-            // Setup UI
-            setupEventListeners();
-            setupConceptToggles();
-
-            // Handle window resize
-            window.addEventListener('resize', onWindowResize);
-
-            // Set initial expression
-            setExpression('coding');
-
-            console.log('🎭 Faicey Enhanced: Initialization complete');
-        }
-
+        // SKULL GEOMETRY FUNCTIONS
         function createSkullGeometryData() {
             // Define comprehensive skull vertices (3D structure)
             const vertices = [
@@ -819,130 +773,9 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
             ];
 
             return { vertices, indices };
-        }
+        };
 
-        function createAdvancedFaceGeometry() {
-            console.log('🎭 Faicey Enhanced: Creating advanced face geometry...');
-            faceGroup = new THREE.Group();
-
-            let vertices = [];
-            let indices = [];
-
-            // Check if we need skull geometry for Professor Codephreak
-            if (currentPersona === 'professor-codephreak') {
-                console.log('🎭 Faicey Enhanced: Creating skull geometry for Professor Codephreak');
-                // Create 3D skull geometry
-                const skullData = createSkullGeometryData();
-                vertices = skullData.vertices;
-                indices = skullData.indices;
-                console.log(`🎭 Faicey Enhanced: Skull data created - ${vertices.length/3} vertices, ${indices.length} indices`);
-            } else {
-                console.log('🎭 Faicey Enhanced: Creating spherical geometry');
-                // Create spherical base with triangulation
-                const basePositions = createSphericalFaceVertices();
-                basePositions.forEach(v => {
-                    vertices.push(v.x, v.y, v.z);
-                });
-                indices = createTriangulatedIndices();
-                console.log(`🎭 Faicey Enhanced: Spherical data created - ${vertices.length/3} vertices, ${indices.length} indices`);
-            }
-
-            const baseVertices = new Float32Array(vertices);
-
-            // Create geometry
-            const geometry = new THREE.BufferGeometry();
-            geometry.setAttribute('position', new THREE.BufferAttribute(baseVertices, 3));
-            geometry.setIndex(indices);
-
-            let vertices = [];
-            let indices = [];
-
-            // Check if we need skull geometry for Professor Codephreak
-            if (currentPersona === 'professor-codephreak') {
-                // Create 3D skull geometry
-                const skullData = createSkullGeometryData();
-                vertices = skullData.vertices;
-                indices = skullData.indices;
-            } else {
-                // Create spherical base with triangulation
-                const basePositions = createSphericalFaceVertices();
-                basePositions.forEach(v => {
-                    vertices.push(v.x, v.y, v.z);
-                });
-                indices = createTriangulatedIndices();
-            }
-
-            const baseVertices = new Float32Array(vertices);
-
-            // Create geometry
-            const geometry = new THREE.BufferGeometry();
-            geometry.setAttribute('position', new THREE.BufferAttribute(baseVertices, 3));
-            geometry.setIndex(indices);
-
-            // Create morph targets (different for skull vs spherical)
-            console.log('🎭 Faicey Enhanced: Creating morph targets...');
-            if (currentPersona === 'professor-codephreak') {
-                createSkullMorphTargets(geometry, baseVertices);
-                console.log('🎭 Faicey Enhanced: Skull morph targets created');
-            } else {
-                createAdvancedMorphTargets(geometry, baseVertices);
-                console.log('🎭 Faicey Enhanced: Spherical morph targets created');
-            }
-
-            // Update vertex count display
-            document.getElementById('vertices').textContent = baseVertices.length / 3;
-            document.getElementById('vertex-count').textContent = baseVertices.length / 3;
-
-            // Update morph count display
-            const morphMap = getMorphMap();
-            document.getElementById('morph-count').textContent = Object.keys(morphMap).length;
-
-            // Create wireframe material
-            const personaConfig = personas[currentPersona];
-            const material = new THREE.MeshBasicMaterial({
-                color: personaConfig.color,
-                wireframe: wireframeVisible,
-                wireframeLinewidth: 2,
-                transparent: true,
-                opacity: wireframeVisible ? 1.0 : 0.0
-            });
-
-            // Create mesh with morph targets
-            console.log('🎭 Faicey Enhanced: Creating mesh...');
-            faceMesh = new THREE.Mesh(geometry, material);
-            const morphMap = getMorphMap();
-            faceMesh.morphTargetInfluences = new Array(Object.keys(morphMap).length).fill(0);
-            console.log(`🎭 Faicey Enhanced: Mesh created with ${faceMesh.morphTargetInfluences.length} morph targets`);
-
-            faceGroup.add(faceMesh);
-            scene.add(faceGroup);
-            console.log('🎭 Faicey Enhanced: Mesh added to scene');
-
-            // Add glow effect
-            if (personaConfig.glow) {
-                addAdvancedGlowEffect();
-            }
-
-            console.log('🎭 Faicey Enhanced: Advanced face geometry created successfully');
-        }
-
-        function updateWireframeVisibility() {
-            if (faceMesh && faceMesh.material) {
-                faceMesh.material.wireframe = wireframeVisible;
-                faceMesh.material.opacity = wireframeVisible ? 1.0 : 0.0;
-                faceMesh.material.transparent = true;
-            }
-
-            // Update glow meshes if they exist
-            faceGroup.children.forEach((child, idx) => {
-                if (idx > 0 && child.material) { // Skip the main mesh (idx 0)
-                    child.material.wireframe = wireframeVisible;
-                    child.material.opacity = wireframeVisible ? (0.15 - (idx - 1) * 0.05) : 0.0;
-                    child.material.transparent = true;
-                }
-            });
-        }
-
+        // SPHERICAL FACE FUNCTIONS (original implementation)
         function createSphericalFaceVertices() {
             const vertices = [];
 
@@ -1569,6 +1402,160 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
             console.log(`Created ${morphTargets.length} skull-based morph targets`);
         }
 
+        function init() {
+            console.log('🎭 Faicey: Initializing...');
+            clock = new THREE.Clock();
+
+            // Create scene
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x000000);
+            scene.fog = new THREE.Fog(0x000000, 8, 20);
+
+            // Create camera
+            camera = new THREE.PerspectiveCamera(
+                60,
+                window.innerWidth / window.innerHeight,
+                0.1,
+                1000
+            );
+            camera.position.set(0, 0, 6);
+
+            // Create renderer
+            console.log('🎭 Faicey: Creating WebGL renderer...');
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.getElementById('container').appendChild(renderer.domElement);
+            console.log('🎭 Faicey: Renderer created and canvas added to DOM');
+
+            // Add lighting
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+            scene.add(ambientLight);
+
+            const pointLight1 = new THREE.PointLight(0x00ff00, 1, 100);
+            pointLight1.position.set(5, 5, 5);
+            scene.add(pointLight1);
+
+            const pointLight2 = new THREE.PointLight(0x00ff00, 0.5, 100);
+            pointLight2.position.set(-5, -5, 5);
+            scene.add(pointLight2);
+
+            // Create face geometry with skull mode
+            console.log('🎭 Faicey: Creating face geometry...');
+            createAdvancedFaceGeometry();
+            updateWireframeVisibility();
+            console.log('🎭 Faicey: Face geometry created');
+
+            // Setup controls
+            controls = new OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            controls.minDistance = 4;
+            controls.maxDistance = 12;
+            controls.target.set(0, 0, 0);
+
+            // Setup UI
+            setupEventListeners();
+            setupConceptToggles();
+
+            // Handle window resize
+            window.addEventListener('resize', onWindowResize);
+
+            // Set initial expression
+            setExpression('coding');
+
+            console.log('🎭 Faicey: Initialization complete');
+        }
+
+        function createAdvancedFaceGeometry() {
+            console.log('🎭 Faicey: Creating advanced face geometry...');
+            faceGroup = new THREE.Group();
+
+            let vertices = [];
+            let indices = [];
+
+            // Check if we need skull geometry for Professor Codephreak
+            if (currentPersona === 'professor-codephreak' && currentGeometryMode === 'skull') {
+                console.log('🎭 Faicey: Creating skull geometry for Professor Codephreak...');
+                // Create 3D skull geometry
+                const skullData = createSkullGeometryData();
+                vertices = skullData.vertices;
+                indices = skullData.indices;
+                console.log(`🎭 Faicey: Skull geometry created with ${vertices.length/3} vertices and ${indices.length} indices`);
+            } else {
+                // Create spherical base with triangulation
+                const basePositions = createSphericalFaceVertices();
+                basePositions.forEach(v => {
+                    vertices.push(v.x, v.y, v.z);
+                });
+                indices = createTriangulatedIndices();
+            }
+
+            const baseVertices = new Float32Array(vertices);
+
+            // Create geometry
+            const geometry = new THREE.BufferGeometry();
+            geometry.setAttribute('position', new THREE.BufferAttribute(baseVertices, 3));
+            geometry.setIndex(indices);
+
+            // Create morph targets (different for skull vs spherical)
+            if (currentPersona === 'professor-codephreak' && currentGeometryMode === 'skull') {
+                createSkullMorphTargets(geometry, baseVertices);
+            } else {
+                createAdvancedMorphTargets(geometry, baseVertices);
+            }
+
+            // Update vertex count display
+            document.getElementById('vertices').textContent = baseVertices.length / 3;
+            document.getElementById('vertex-count').textContent = baseVertices.length / 3;
+
+            // Create wireframe material
+            const personaConfig = personas[currentPersona];
+            const material = new THREE.MeshBasicMaterial({
+                color: personaConfig.color,
+                wireframe: wireframeVisible,
+                wireframeLinewidth: 2,
+                transparent: true,
+                opacity: wireframeVisible ? 1.0 : 0.0
+            });
+
+            // Create mesh with morph targets
+            faceMesh = new THREE.Mesh(geometry, material);
+            const morphMap = getMorphMap();
+            faceMesh.morphTargetInfluences = new Array(Object.keys(morphMap).length).fill(0);
+
+            faceGroup.add(faceMesh);
+            scene.add(faceGroup);
+            console.log('🎭 Faicey: Face mesh added to scene');
+
+            // Add glow effect
+            if (personaConfig.glow) {
+                addAdvancedGlowEffect();
+            }
+
+            console.log('🎭 Faicey: Advanced face geometry created successfully');
+        }
+
+        function updateWireframeVisibility() {
+            if (faceMesh && faceMesh.material) {
+                faceMesh.material.wireframe = wireframeVisible;
+                faceMesh.material.opacity = wireframeVisible ? 1.0 : 0.0;
+                faceMesh.material.transparent = true;
+            }
+
+            // Update glow meshes if they exist
+            faceGroup.children.forEach((child, idx) => {
+                if (idx > 0 && child.material) { // Skip the main mesh (idx 0)
+                    child.material.wireframe = wireframeVisible;
+                    child.material.opacity = wireframeVisible ? (0.15 - (idx - 1) * 0.05) : 0.0;
+                    child.material.transparent = true;
+                }
+            });
+
+            // Update status display
+            document.getElementById('wireframe-status').textContent = wireframeVisible ? 'Visible' : 'Hidden';
+        }
+
         function addAdvancedGlowEffect() {
             const personaConfig = personas[currentPersona];
 
@@ -1577,9 +1564,9 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
                 const glowGeometry = faceMesh.geometry.clone();
                 const glowMaterial = new THREE.MeshBasicMaterial({
                     color: personaConfig.color,
-                    wireframe: true,
+                    wireframe: wireframeVisible,
                     transparent: true,
-                    opacity: 0.15 - i * 0.05
+                    opacity: wireframeVisible ? (0.15 - i * 0.05) : 0.0
                 });
 
                 const glow = new THREE.Mesh(glowGeometry, glowMaterial);
@@ -1617,7 +1604,8 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
                 const morphName = slider.dataset.morph;
                 const morphMap = getMorphMap();
                 const idx = morphMap[morphName];
-                if (idx !== undefined && faceMesh.morphTargetInfluences) {
+
+                if (idx !== undefined && faceMesh && faceMesh.morphTargetInfluences) {
                     const value = faceMesh.morphTargetInfluences[idx] || 0;
                     slider.value = Math.round(value * 100);
                     const display = document.getElementById(`val-${morphName}`);
@@ -1670,20 +1658,55 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
                 currentPersona = newPersona;
 
                 // Create new face geometry
-                console.log(`🎭 Enhanced: Creating face for persona: ${currentPersona}`);
+                console.log(`🎭 Creating face for persona: ${currentPersona}`);
                 createAdvancedFaceGeometry();
+                updateWireframeVisibility();
 
                 // Update morph count
                 if (currentPersona === 'professor-codephreak') {
                     document.getElementById('morph-count').textContent = '14';
                 } else {
-                    document.getElementById('morph-count').textContent = faceMesh.morphTargetInfluences ? faceMesh.morphTargetInfluences.length : '0';
+                    const morphMap = getMorphMap();
+                    document.getElementById('morph-count').textContent = Object.keys(morphMap).length;
                 }
 
                 // Update UI
                 document.getElementById('persona-name').textContent = personaConfig.name;
+                document.getElementById('geometry-type').textContent = (currentPersona === 'professor-codephreak') ? '3D Skull Wireframe' : 'Spherical Triangulated';
 
-                console.log(`🎭 Enhanced: Switched to persona: ${currentPersona}`);
+                console.log(`🎭 Switched to persona: ${currentPersona}`);
+            });
+
+            // Geometry mode selector
+            document.getElementById('geometry-mode').addEventListener('change', (e) => {
+                const newGeometryMode = e.target.value;
+
+                // Only recreate if we're Professor Codephreak and changing modes
+                if (currentPersona === 'professor-codephreak' && newGeometryMode !== currentGeometryMode) {
+                    currentGeometryMode = newGeometryMode;
+
+                    // Remove old geometry
+                    scene.remove(faceGroup);
+                    if (faceMesh) {
+                        faceMesh.geometry.dispose();
+                        faceMesh.material.dispose();
+                    }
+
+                    // Recreate with new geometry type
+                    createAdvancedFaceGeometry();
+                    updateWireframeVisibility();
+
+                    // Update morph count display
+                    const morphMap = getMorphMap();
+                    document.getElementById('morph-count').textContent = Object.keys(morphMap).length;
+                    document.getElementById('geometry-type').textContent = currentGeometryMode === 'skull' ? '3D Skull Wireframe' : 'Spherical Triangulated';
+                }
+            });
+
+            // Wireframe visibility toggle
+            document.getElementById('wireframe-visibility').addEventListener('change', (e) => {
+                wireframeVisible = e.target.value === 'visible';
+                updateWireframeVisibility();
             });
 
             // Random button
@@ -1775,6 +1798,8 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
             requestAnimationFrame(animate);
 
 
+            // console.log('🎭 Faicey: Rendering frame...'); // Commented out to avoid spam
+
             const delta = clock.getDelta();
             const now = Date.now();
 
@@ -1819,13 +1844,13 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
         }
 
         // Initialize and start
-        console.log('🎭 Faicey Enhanced: Starting initialization...');
+        console.log('🎭 Faicey: Starting initialization...');
         init();
-        console.log('🎭 Faicey Enhanced: Starting animation loop...');
+        console.log('🎭 Faicey: Starting animation loop...');
         animate();
 
         console.log('🎭 Faicey Advanced 3D Face loaded!');
-        console.log('📊 Morphs:', Object.keys(morphMap).length);
+        console.log('📊 Morphs:', Object.keys(getMorphMap()).length);
         console.log('🎨 Personas:', Object.keys(personas).length);
     </script>
 </body>

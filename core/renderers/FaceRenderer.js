@@ -1,15 +1,22 @@
 /**
- * FaceRenderer - Main three.js face rendering engine for mindX personas
+ * FaceRenderer - Main three.js face rendering engine for Faicey agent personas
  * Handles scene setup, rendering loop, and face initialization
  */
 
 import * as THREE from 'three';
-import FaceGeometry from './FaceGeometry.js';
-import ExpressionController from './ExpressionController.js';
-import WireframeController from './WireframeController.js';
+import FaceGeometry from '../geometry/FaceGeometry.js';
+import ExpressionController from '../controllers/ExpressionController.js';
+import WireframeController from '../controllers/WireframeController.js';
 
-export default class FaceRenderer {
+/**
+ * FaceRenderer - Main three.js face rendering engine for Faicey agent personas
+ */
+/**
+ * FaceRenderer - Main three.js face rendering engine for Faicey agent personas
+ */
+export class FaceRenderer {
   constructor(options = {}) {
+    this.logger = options.logger || new Logger();
     this.options = {
       wireframe: options.wireframe !== false,
       expressions: options.expressions !== false,
@@ -143,7 +150,48 @@ export default class FaceRenderer {
     if (this.expressionController) {
       this.expressionController.setExpression(expression, intensity);
     } else {
-      console.warn('Expression controller not initialized');
+      this.logger.warn('Expression controller not initialized');
+    }
+  }
+
+  /**
+   * Set persona configuration
+   * @param {Object} personaConfig - Persona configuration
+   * @returns {Promise<void>}
+   */
+  async setPersona(personaConfig) {
+    try {
+      this.logger.info(`Setting persona: ${personaConfig.name}`);
+
+      // Update wireframe settings
+      if (personaConfig.wireframe && this.wireframeController) {
+        this.wireframeController.setColor(personaConfig.wireframe.color || this.options.faceColor);
+        if (personaConfig.wireframe.style) {
+          this.wireframeController.setSkullStyle(personaConfig.wireframe.style);
+        }
+        if (personaConfig.wireframe.thickness) {
+          // Update thickness if method exists
+          if (this.wireframeController.setThickness) {
+            this.wireframeController.setThickness(personaConfig.wireframe.thickness);
+          }
+        }
+      }
+
+      // Update face color
+      if (personaConfig.color && this.face && this.face.material) {
+        this.face.material.color.setHex(personaConfig.color);
+      }
+
+      // Set default expression
+      if (personaConfig.defaultExpression) {
+        await this.setExpression(personaConfig.defaultExpression);
+      }
+
+      this.logger.info(`Persona set successfully: ${personaConfig.name}`);
+
+    } catch (error) {
+      this.logger.error(`Failed to set persona ${personaConfig.name}:`, error);
+      throw error;
     }
   }
 
@@ -181,11 +229,14 @@ export default class FaceRenderer {
     this.isAnimating = true;
 
     const animateLoop = () => {
-      this.animationFrame = requestAnimationFrame(animateLoop);
-
       // Update expression controller
       if (this.expressionController) {
         this.expressionController.update();
+      }
+
+      // Update skull wireframe animations
+      if (this.wireframeController && this.wireframeController.updateSkullWireframe) {
+        this.wireframeController.updateSkullWireframe();
       }
 
       // Render scene
@@ -194,7 +245,17 @@ export default class FaceRenderer {
       }
     };
 
-    animateLoop();
+    // Use requestAnimationFrame if available (browser), otherwise setInterval (Node.js)
+    if (typeof requestAnimationFrame !== 'undefined') {
+      const rafLoop = () => {
+        this.animationFrame = requestAnimationFrame(rafLoop);
+        animateLoop();
+      };
+      rafLoop();
+    } else {
+      // Node.js fallback - run at ~60fps
+      this.animationFrame = setInterval(animateLoop, 1000 / 60);
+    }
   }
 
   /**
@@ -202,7 +263,11 @@ export default class FaceRenderer {
    */
   stopAnimation() {
     if (this.animationFrame) {
-      cancelAnimationFrame(this.animationFrame);
+      if (typeof cancelAnimationFrame !== 'undefined') {
+        cancelAnimationFrame(this.animationFrame);
+      } else {
+        clearInterval(this.animationFrame);
+      }
       this.animationFrame = null;
     }
     this.isAnimating = false;

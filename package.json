@@ -1,8 +1,8 @@
 {
   "name": "@mindx/faicey",
   "version": "0.1.0",
-  "description": "Three.js-based face rendering system for mindX personas with wireframe and expression support",
-  "main": "core/FaceRenderer.js",
+  "description": "Definitive agent persona and model persona face creator and face cloning software with scientific hyper-realistic expressions for machine learning models",
+  "main": "core/index.js",
   "type": "module",
   "scripts": {
     "test": "node test.js",
@@ -14,7 +14,10 @@
     "start": "node core/FaceRenderer.js",
     "example:professor": "node examples/professor-codephreak.js",
     "example:jaimla": "node examples/jaimla-example.js",
-    "example:basic": "node examples/basic-face.js"
+    "example:basic": "node examples/basic-face.js",
+    "example:modular": "node examples/modular-faicey-demo.js",
+    "personas:list": "node -e \"import { createPersonaManager } from './core/index.js'; const pm = createPersonaManager(); await pm.initialize(); console.log('Available templates:', pm.getAllTemplates().map(t => t.name));\"",
+    "personas:create": "node -e \"import { createFaicey } from './core/index.js'; const faicey = createFaicey(); await faicey.initialize(); const persona = await faicey.createPersona('professor-codephreak', 'test-persona'); console.log('Created persona:', persona.name);\""
   },
   "keywords": [
     "threejs",
