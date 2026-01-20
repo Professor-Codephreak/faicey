@@ -1,4 +1,5 @@
 /**
+ * @module utils/MorphTargets
  * MorphTargets - Utility library for morph target management
  * Provides helpers for creating and managing facial morph targets
  */

@@ -4,7 +4,8 @@
  * github.com/Professor-Codephreak
  */
 
-import FaceRenderer from '../core/FaceRenderer.js';
+import { FaceRenderer } from '../core/renderers/FaceRenderer.js';
+import { ConfigurationManager } from '../core/config/ConfigurationManager.js';
 import { readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
@@ -17,18 +18,16 @@ class ProfessorCodephreakFace {
     this.renderer = null;
     this.config = null;
     this.currentActivity = 'idle';
-    this.loadConfig();
   }
 
   /**
    * Load persona configuration
    */
-  loadConfig() {
+  async loadConfig() {
     try {
-      const configPath = join(__dirname, '../config/personas.json');
-      const configData = readFileSync(configPath, 'utf-8');
-      const allConfigs = JSON.parse(configData);
-      this.config = allConfigs.personas['professor-codephreak'];
+      const configManager = new ConfigurationManager();
+      await configManager.load(join(__dirname, '../config/personas.json'));
+      this.config = await configManager.getPersonaConfig('professor-codephreak');
       console.log('✓ Loaded Professor Codephreak configuration');
     } catch (error) {
       console.error('Failed to load config:', error.message);
@@ -54,7 +53,9 @@ class ProfessorCodephreakFace {
   /**
    * Initialize the face renderer
    */
-  init() {
+  async init() {
+    await this.loadConfig();
+
     const wireframeColor = parseInt(this.config.wireframe.color);
 
     this.renderer = new FaceRenderer({
@@ -67,12 +68,34 @@ class ProfessorCodephreakFace {
 
     this.renderer.init();
 
+    // Initialize skull wireframe if enabled
+    if (this.config.wireframe.skullMode && this.renderer.wireframeController) {
+      this.renderer.wireframeController.createSkullWireframe();
+      this.renderer.wireframeController.setSkullStyle(this.config.wireframe.style);
+
+      // Apply glow effect if enabled
+      if (this.config.wireframe.glowEffect) {
+        this.renderer.wireframeController.animateGlow(
+          wireframeColor,
+          0x00ff88,
+          this.config.wireframe.animationSpeed
+        );
+      }
+
+      console.log('✓ Skull wireframe initialized');
+      console.log(`  Style: ${this.config.wireframe.style}`);
+      console.log(`  Anatomical markers: ${this.config.wireframe.anatomicalMarkers}`);
+      console.log(`  Depth visualization: ${this.config.wireframe.depthVisualization}`);
+      console.log(`  Layers: ${this.config.wireframe.layers}`);
+    }
+
     // Set initial expression
     this.renderer.setExpression(this.config.defaultExpression);
 
     console.log('✓ Professor Codephreak face initialized');
     console.log(`  Default expression: ${this.config.defaultExpression}`);
     console.log(`  Wireframe: ${this.config.wireframe.enabled ? 'enabled' : 'disabled'}`);
+    console.log(`  Skull mode: ${this.config.wireframe.skullMode ? 'enabled' : 'disabled'}`);
 
     return this;
   }
@@ -80,7 +103,7 @@ class ProfessorCodephreakFace {
   /**
    * Start the animation loop
    */
-  start() {
+  async start() {
     if (!this.renderer) {
       console.error('Renderer not initialized. Call init() first.');
       return;
@@ -230,7 +253,8 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   console.log('╚════════════════════════════════════════════════╝\n');
 
   const professor = new ProfessorCodephreakFace();
-  professor.init().start();
+  await professor.init();
+  professor.start();
 
   // Handle cleanup on exit
   process.on('SIGINT', () => {

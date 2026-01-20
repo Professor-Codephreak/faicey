@@ -29,10 +29,14 @@ const server = createServer((req, res) => {
     console.log(`${req.method} ${req.url}`);
 
     let filePath;
-    if (req.url === '/') {
-        filePath = join(__dirname, 'examples', 'holographic-face-3d.html');
+    if (req.url === '/' || req.url === '/index.html') {
+        filePath = join(__dirname, 'examples', 'index.html');
+    } else if (req.url === '/local') {
+        filePath = join(__dirname, 'examples', 'holographic-face-3d-local.html');
     } else if (req.url === '/basic') {
         filePath = join(__dirname, 'examples', 'holographic-face.html');
+    } else if (req.url === '/original') {
+        filePath = join(__dirname, 'examples', 'holographic-face-3d.html');
     } else {
         filePath = join(__dirname, req.url);
     }

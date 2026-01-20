@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faicey - Face Rendering System</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background: #000;
+            color: #0f0;
+            margin: 0;
+            padding: 40px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #0f0;
+            text-align: center;
+            margin-bottom: 40px;
+            text-shadow: 0 0 20px #0f0;
+            font-size: 2.5em;
+        }
+
+        .version-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .version-card {
+            background: rgba(0, 255, 0, 0.05);
+            border: 2px solid #0f0;
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .version-card:hover {
+            background: rgba(0, 255, 0, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 0, 0.3);
+        }
+
+        .version-card h2 {
+            color: #0f0;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .version-card p {
+            color: #0f0;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .version-card a {
+            display: inline-block;
+            background: #0f0;
+            color: #000;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .version-card a:hover {
+            background: #00ff00;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(0, 255, 0, 0.2);
+            color: #0f0;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            margin-left: 8px;
+        }
+
+        .description {
+            background: rgba(0, 255, 0, 0.05);
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        .description h3 {
+            color: #0f0;
+            margin-bottom: 15px;
+        }
+
+        .description ul {
+            color: #0f0;
+            line-height: 1.8;
+        }
+
+        .description li {
+            margin-bottom: 8px;
+        }
+
+        .skull-features {
+            background: rgba(255, 0, 128, 0.05);
+            border: 1px solid #ff0080;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .skull-features h4 {
+            color: #ff0080;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚡ FAICEY ⚡</h1>
+        <h2 style="text-align: center; color: #0f0; margin-bottom: 40px;">Definitive Agent Persona & Face Cloning Software</h2>
+
+        <div class="version-grid">
+            <div class="version-card">
+                <h2>🎭 Local Version <span class="badge">RECOMMENDED</span></h2>
+                <p>Complete offline experience with all features working locally. Includes the new 3D skull wireframe for Professor Codephreak.</p>
+                <a href="/local">Launch Local Version</a>
+            </div>
+
+            <div class="version-card">
+                <h2>⚡ Enhanced Version <span class="badge">FULL FEATURES</span></h2>
+                <p>Complete local version with all features: Professor Codephreak skull wireframe, persona system, and interactive controls.</p>
+                <a href="/original">Launch Enhanced Version</a>
+            </div>
+        </div>
+
+        <div class="description">
+            <h3>✨ Features</h3>
+            <ul>
+                <li><strong>Agent Personas:</strong> Professor Codephreak (3D skull), Jaimla, mindX Base, and extensible system</li>
+                <li><strong>Scientific Expressions:</strong> 28+ morph targets with anatomical facial control</li>
+                <li><strong>Face Cloning Tech:</strong> Foundations for hyper-realistic AI face generation</li>
+                <li><strong>Modular Architecture:</strong> Plugin system, persona templates, and extensible design</li>
+                <li><strong>Wireframe Control:</strong> Toggle-able facial expression connections (transparent by default)</li>
+                <li><strong>Real-time Performance:</strong> 60 FPS rendering with <16ms morph response times</li>
+            </ul>
+        </div>
+
+        <div class="skull-features">
+            <h4>🗿 3D Skull Wireframe Features (Professor Codephreak)</h4>
+            <ul>
+                <li><strong>Complete Anatomy:</strong> Cranium, mandible, orbital cavities, nasal cavity, zygomatic arches</li>
+                <li><strong>98 Vertices:</strong> Detailed wireframe with 271 line segments</li>
+                <li><strong>Skull-Specific Expressions:</strong> Anatomically accurate morphing (smile moves zygomatic arches, etc.)</li>
+                <li><strong>Depth Visualization:</strong> 3D structure with proper Z-axis positioning</li>
+                <li><strong>Bone Articulation:</strong> Realistic jaw movement and facial structure</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

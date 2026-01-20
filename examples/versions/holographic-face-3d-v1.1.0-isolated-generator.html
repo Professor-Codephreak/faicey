@@ -436,14 +436,14 @@
     <script type="module">
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-// import { ProfessorCodephreakFaceGenerator } from '../personas/ProfessorCodephreakFaceGenerator.js';
+import { ProfessorCodephreakFaceGenerator } from '../personas/ProfessorCodephreakFaceGenerator.js';
 
         // Global variables
         let scene, camera, renderer, controls;
         let faceMesh, faceGroup, glowMesh;
         let clock, frameCount = 0, lastTime = Date.now();
         let currentPersona = 'professor-codephreak';
-        let wireframeVisible = true; // Default: face visible with wireframe
+        let professorCodephreakGenerator = null; // Isolated face generator
 
         // Interaction state management
         let isMouseInteracting = false;
@@ -598,7 +598,6 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
             // Create face geometry with triangulation
             console.log('🎭 Faicey Enhanced: Creating face geometry...');
             createAdvancedFaceGeometry();
-            updateWireframeVisibility();
             console.log('🎭 Faicey Enhanced: Face geometry created');
 
             // Setup controls
@@ -830,21 +829,17 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
             // Check if we need skull geometry for Professor Codephreak
             if (currentPersona === 'professor-codephreak') {
-                console.log('🎭 Faicey Enhanced: Creating skull geometry for Professor Codephreak');
                 // Create 3D skull geometry
                 const skullData = createSkullGeometryData();
                 vertices = skullData.vertices;
                 indices = skullData.indices;
-                console.log(`🎭 Faicey Enhanced: Skull data created - ${vertices.length/3} vertices, ${indices.length} indices`);
             } else {
-                console.log('🎭 Faicey Enhanced: Creating spherical geometry');
                 // Create spherical base with triangulation
                 const basePositions = createSphericalFaceVertices();
                 basePositions.forEach(v => {
                     vertices.push(v.x, v.y, v.z);
                 });
                 indices = createTriangulatedIndices();
-                console.log(`🎭 Faicey Enhanced: Spherical data created - ${vertices.length/3} vertices, ${indices.length} indices`);
             }
 
             const baseVertices = new Float32Array(vertices);
@@ -853,6 +848,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
             const geometry = new THREE.BufferGeometry();
             geometry.setAttribute('position', new THREE.BufferAttribute(baseVertices, 3));
             geometry.setIndex(indices);
+            faceGroup = new THREE.Group();
 
             let vertices = [];
             let indices = [];
@@ -880,13 +876,10 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
             geometry.setIndex(indices);
 
             // Create morph targets (different for skull vs spherical)
-            console.log('🎭 Faicey Enhanced: Creating morph targets...');
             if (currentPersona === 'professor-codephreak') {
                 createSkullMorphTargets(geometry, baseVertices);
-                console.log('🎭 Faicey Enhanced: Skull morph targets created');
             } else {
                 createAdvancedMorphTargets(geometry, baseVertices);
-                console.log('🎭 Faicey Enhanced: Spherical morph targets created');
             }
 
             // Update vertex count display
@@ -901,22 +894,17 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
             const personaConfig = personas[currentPersona];
             const material = new THREE.MeshBasicMaterial({
                 color: personaConfig.color,
-                wireframe: wireframeVisible,
-                wireframeLinewidth: 2,
-                transparent: true,
-                opacity: wireframeVisible ? 1.0 : 0.0
+                wireframe: true,
+                wireframeLinewidth: 2
             });
 
             // Create mesh with morph targets
-            console.log('🎭 Faicey Enhanced: Creating mesh...');
             faceMesh = new THREE.Mesh(geometry, material);
             const morphMap = getMorphMap();
             faceMesh.morphTargetInfluences = new Array(Object.keys(morphMap).length).fill(0);
-            console.log(`🎭 Faicey Enhanced: Mesh created with ${faceMesh.morphTargetInfluences.length} morph targets`);
 
             faceGroup.add(faceMesh);
             scene.add(faceGroup);
-            console.log('🎭 Faicey Enhanced: Mesh added to scene');
 
             // Add glow effect
             if (personaConfig.glow) {
@@ -924,23 +912,6 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
             }
 
             console.log('🎭 Faicey Enhanced: Advanced face geometry created successfully');
-        }
-
-        function updateWireframeVisibility() {
-            if (faceMesh && faceMesh.material) {
-                faceMesh.material.wireframe = wireframeVisible;
-                faceMesh.material.opacity = wireframeVisible ? 1.0 : 0.0;
-                faceMesh.material.transparent = true;
-            }
-
-            // Update glow meshes if they exist
-            faceGroup.children.forEach((child, idx) => {
-                if (idx > 0 && child.material) { // Skip the main mesh (idx 0)
-                    child.material.wireframe = wireframeVisible;
-                    child.material.opacity = wireframeVisible ? (0.15 - (idx - 1) * 0.05) : 0.0;
-                    child.material.transparent = true;
-                }
-            });
         }
 
         function createSphericalFaceVertices() {
@@ -1590,6 +1561,15 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
         }
 
         function setExpression(expressionName, intensity = 1.0) {
+            // Use isolated generator for Professor Codephreak
+            if (currentPersona === 'professor-codephreak' && professorCodephreakGenerator) {
+                professorCodephreakGenerator.setExpression(expressionName, { intensity });
+                updateAllSliders();
+                document.getElementById('current-expression').textContent = expressionName;
+                return;
+            }
+
+            // Standard expression setting for other personas
             const expr = expressions[expressionName] || {};
 
             // Reset all morphs
@@ -1652,7 +1632,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
             });
 
             // Persona selector
-            document.getElementById('persona-select').addEventListener('change', (e) => {
+            document.getElementById('persona-select').addEventListener('change', async (e) => {
                 const newPersona = e.target.value;
                 const personaConfig = personas[newPersona];
 
@@ -1667,16 +1647,32 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
                     }
                 }
 
+                // Dispose current generator if exists
+                if (professorCodephreakGenerator) {
+                    await professorCodephreakGenerator.dispose();
+                    professorCodephreakGenerator = null;
+                }
+
                 currentPersona = newPersona;
 
-                // Create new face geometry
-                console.log(`🎭 Enhanced: Creating face for persona: ${currentPersona}`);
-                createAdvancedFaceGeometry();
-
-                // Update morph count
+                // Generate face based on persona
                 if (currentPersona === 'professor-codephreak') {
+                    // Use isolated Professor Codephreak face generator
+                    console.log('🎭 Enhanced: Using isolated Professor Codephreak face generator...');
+                    professorCodephreakGenerator = new ProfessorCodephreakFaceGenerator();
+
+                    const faceComponents = await professorCodephreakGenerator.generateFace(scene, { faceMesh, faceGroup });
+                    faceGroup = faceComponents.faceGroup;
+                    faceMesh = faceComponents.faceMesh;
+
+                    // Update morph count for skull
                     document.getElementById('morph-count').textContent = '14';
+
                 } else {
+                    // Use standard geometry creation for other personas
+                    createAdvancedFaceGeometry();
+
+                    // Update morph count for spherical
                     document.getElementById('morph-count').textContent = faceMesh.morphTargetInfluences ? faceMesh.morphTargetInfluences.length : '0';
                 }
 
@@ -1705,8 +1701,15 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
                     const morphName = e.target.dataset.morph;
                     const value = e.target.value / 100;
 
-                    // Standard morph setting
-                    if (faceMesh && faceMesh.morphTargetInfluences) {
+                    // Use isolated generator for Professor Codephreak
+                    if (currentPersona === 'professor-codephreak' && professorCodephreakGenerator && faceMesh.morphTargetInfluences) {
+                        const morphMap = professorCodephreakGenerator.getMorphMap();
+                        const idx = morphMap[morphName];
+                        if (idx !== undefined) {
+                            faceMesh.morphTargetInfluences[idx] = value;
+                        }
+                    } else if (faceMesh && faceMesh.morphTargetInfluences) {
+                        // Standard morph setting for other personas
                         const morphMap = getMorphMap();
                         const idx = morphMap[morphName];
                         if (idx !== undefined) {
@@ -1774,6 +1777,10 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
         function animate() {
             requestAnimationFrame(animate);
 
+            // Update isolated generator if active
+            if (currentPersona === 'professor-codephreak' && professorCodephreakGenerator) {
+                professorCodephreakGenerator.update(0.016); // ~60fps delta
+            }
 
             const delta = clock.getDelta();
             const now = Date.now();

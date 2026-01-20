@@ -1,4 +1,5 @@
 /**
+ * @module controllers/ExpressionController
  * ExpressionController - Manages facial expressions and morph target animations
  * Handles complex expression combinations and smooth transitions
  */
