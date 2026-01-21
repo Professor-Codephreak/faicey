@@ -20,7 +20,12 @@
     "personas:create": "node -e \"import { createFaicey } from './core/index.js'; const faicey = createFaicey(); await faicey.initialize(); const persona = await faicey.createPersona('professor-codephreak', 'test-persona'); console.log('Created persona:', persona.name);\"",
     "nft:export": "node export-nft-personas.js",
     "nft:validate": "node -e \"import('./core/index.js').then(m => { import('fs').then(fs => { const data = JSON.parse(fs.readFileSync('./config/personas.json')); Object.values(data.personas).forEach(p => { const v = m.validatePersonaForNFT(p); console.log(p.core.name + ': NFT Ready ' + (v.valid ? '✅' : '❌')); }); }); });\"",
-    "nft:version-check": "node -e \"import('./core/index.js').then(m => { const vm = m.createVersionManager(); console.log('Current version:', vm.currentVersion); });\""
+    "nft:version-check": "node -e \"import('./core/index.js').then(m => { const vm = m.createVersionManager(); console.log('Current version:', vm.currentVersion); });\"",
+    "nft:deploy": "node scripts/deploy-nft.js",
+    "nft:deploy:test": "node scripts/deploy-nft.js --test",
+    "hardhat:compile": "npx hardhat compile",
+    "hardhat:test": "npx hardhat test",
+    "hardhat:deploy:arc": "npx hardhat run scripts/deploy-nft.js --network arcTestnet"
   },
   "keywords": [
     "threejs",
@@ -34,10 +39,13 @@
   "dependencies": {
     "three": "^0.160.0",
     "express": "^4.18.2",
-    "semver": "^7.6.0"
+    "semver": "^7.6.0",
+    "ethers": "^6.8.0"
   },
   "devDependencies": {
-    "http-server": "^14.1.1"
+    "http-server": "^14.1.1",
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "hardhat": "^2.19.0"
   },
   "engines": {
     "node": ">=18.0.0"

@@ -1,0 +1,132 @@
+{
+  "arcChain": {
+    "testnet": {
+      "chainId": "0x4cee8a",
+      "chainName": "Arc Chain Testnet",
+      "rpcUrl": "https://rpc.testnet.arc.network",
+      "explorerUrl": "https://testnet.arcscan.app",
+      "nativeCurrency": {
+        "name": "USDC",
+        "symbol": "USDC",
+        "decimals": 18
+      }
+    },
+    "mainnet": {
+      "chainId": "0x4cee89",
+      "chainName": "Arc Chain",
+      "rpcUrl": "https://rpc.arc.network",
+      "explorerUrl": "https://arcscan.net",
+      "nativeCurrency": {
+        "name": "USDC",
+        "symbol": "USDC",
+        "decimals": 18
+      }
+    }
+  },
+  "contracts": {
+    "faiceyNFT": {
+      "testnet": "0x0000000000000000000000000000000000000000",
+      "mainnet": "0x0000000000000000000000000000000000000000"
+    }
+  },
+  "ipfs": {
+    "gateway": "https://ipfs.io/ipfs/",
+    "pinata": {
+      "apiKey": null,
+      "secretKey": null,
+      "gateway": "https://gateway.pinata.cloud/ipfs/"
+    }
+  },
+  "features": {
+    "dynamicTraits": true,
+    "evolution": true,
+    "aiPrompts": true,
+    "rightClickMinting": true
+  },
+  "ui": {
+    "contextMenu": {
+      "enabled": true,
+      "items": [
+        {
+          "id": "mint-nft",
+          "label": "Mint as iNFT",
+          "icon": "🎨",
+          "description": "Mint this persona as an intelligent NFT on Arc Chain"
+        },
+        {
+          "id": "view-nft",
+          "label": "View on ArcScan",
+          "icon": "🔍",
+          "description": "View this persona's NFT on the blockchain explorer"
+        },
+        {
+          "id": "evolve-nft",
+          "label": "Evolve NFT",
+          "icon": "⚡",
+          "description": "Trigger evolution for this dynamic NFT"
+        }
+      ]
+    },
+    "notifications": {
+      "enabled": true,
+      "duration": 5000,
+      "position": "top-right"
+    }
+  },
+  "minting": {
+    "defaultMetadata": {
+      "name": "Faicey AI Persona",
+      "description": "Dynamic AI persona with intelligent behavior and evolutionary traits",
+      "external_url": "https://faicey.ai",
+      "attributes": []
+    },
+    "royalties": {
+      "recipient": null,
+      "percentage": 2.5
+    },
+    "gasSettings": {
+      "maxFeePerGas": null,
+      "maxPriorityFeePerGas": null
+    }
+  },
+  "evolution": {
+    "xpSystem": {
+      "baseXP": 10,
+      "multipliers": {
+        "interaction": 1.0,
+        "teaching": 2.0,
+        "debugging": 1.5,
+        "collaboration": 1.8
+      }
+    },
+    "levelRequirements": [
+      0, 100, 500, 1500, 5000, 10000, 20000, 50000, 100000, 250000
+    ],
+    "traitEvolution": {
+      "intelligence": {
+        "maxGrowth": 100,
+        "decayRate": -0.05,
+        "triggers": ["successful_interaction", "teaching_session"]
+      },
+      "experience": {
+        "levels": ["Novice", "Apprentice", "Expert", "Master", "Legendary"],
+        "xpMultiplier": 1.2
+      }
+    }
+  },
+  "ai": {
+    "prompts": {
+      "includeSystemPrompt": true,
+      "includeInteractionPrompts": true,
+      "includeEvolutionPrompts": true,
+      "maxPromptLength": 2000
+    },
+    "capabilities": [
+      "conversation_memory",
+      "adaptive_communication",
+      "personality_driven_responses",
+      "context_aware_interactions",
+      "continuous_learning"
+    ]
+  }
+}

@@ -424,6 +424,12 @@
         <div>Morphs: <span id="morph-total">28</span></div>
     </div>
 
+    <!-- Faicey NFT Extension -->
+    <script src="../extensions/ArcChainNFTExtension.js"></script>
+
+    <!-- Faicey NFT UI Integration -->
+    <script src="../ui/faicey-nft-ui.js"></script>
+
     <script type="importmap">
     {
         "imports": {
@@ -1655,6 +1661,12 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
             document.getElementById('persona-select').addEventListener('change', (e) => {
                 const newPersona = e.target.value;
                 const personaConfig = personas[newPersona];
+
+                // Update NFT UI with new persona
+                if (window.faiceyNFTUI) {
+                    window.faiceyNFTUI.updateCurrentPersona(newPersona);
+                    console.log('🎭 Persona changed to:', newPersona);
+                }
 
                 // Remove current face
                 if (faceGroup) {
