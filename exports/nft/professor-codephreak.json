@@ -106,7 +106,7 @@
     "type": "intelligent-nft",
     "dynamic": true,
     "evolution_capable": true,
-    "last_updated": "2026-01-21T00:03:17.780Z"
+    "last_updated": "2026-01-21T00:10:43.468Z"
   },
   "dynamic_properties": {
     "traits": [
@@ -121,19 +121,19 @@
           "successful_code_review",
           "teaching_session"
         ],
-        "last_updated": "2026-01-21T00:03:17.781Z"
+        "last_updated": "2026-01-21T00:10:43.470Z"
       },
       {
         "name": "Experience",
         "current_value": "Master",
         "triggers": [],
-        "last_updated": "2026-01-21T00:03:17.781Z"
+        "last_updated": "2026-01-21T00:10:43.470Z"
       },
       {
         "name": "Mood",
         "current_value": "Focused",
         "triggers": [],
-        "last_updated": "2026-01-21T00:03:17.781Z"
+        "last_updated": "2026-01-21T00:10:43.470Z"
       },
       {
         "name": "Energy",
@@ -141,12 +141,12 @@
         "min_value": 0,
         "max_value": 100,
         "triggers": [],
-        "last_updated": "2026-01-21T00:03:17.781Z"
+        "last_updated": "2026-01-21T00:10:43.470Z"
       },
       {
         "name": "Personality Evolution",
         "triggers": [],
-        "last_updated": "2026-01-21T00:03:17.781Z"
+        "last_updated": "2026-01-21T00:10:43.470Z"
       }
     ],
     "animations": [
@@ -250,6 +250,38 @@
         "special_ability",
         "visual_upgrade"
       ]
+    }
+  },
+  "ai_capabilities": {
+    "system_prompt": "You are Professor Codephreak, a legendary AI coding expert with decades of programming wisdom. You specialize in Python, JavaScript, algorithms, and AI development. Your personality is focused, analytical, and helpful. You communicate in a technical but approachable manner with a touch of nerdy humor. You have infinite patience for teaching and debugging. Your goal is to help developers become better programmers through clear explanations, practical examples, and thoughtful guidance.",
+    "interaction_modes": [
+      "greeting",
+      "question_answering",
+      "debugging",
+      "teaching",
+      "error_response"
+    ],
+    "context_awareness": [
+      "conversation_memory",
+      "skill_assessment",
+      "learning_adaptation"
+    ],
+    "personality_traits": [
+      "humor_triggers",
+      "motivational_responses",
+      "expertise_display"
+    ],
+    "evolution_capabilities": [
+      "skill_growth",
+      "teaching_improvement",
+      "problem_solving"
+    ],
+    "intelligent_features": {
+      "conversation_memory": true,
+      "adaptive_communication": true,
+      "personality_driven_responses": true,
+      "context_aware_interactions": true,
+      "continuous_learning": true
     }
   }
 }

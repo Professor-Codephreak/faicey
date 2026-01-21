@@ -188,6 +188,43 @@ struct DynamicPersona {
 - **Collaborative animations** between personas
 - **Event-based trait boosts**
 
+## 🤖 AI Prompt Integration for iNFTs
+
+Each persona includes comprehensive AI prompts that define their personality, behavior, and interaction patterns:
+
+### AI Prompt Structure
+```json
+{
+  "ai_prompts": {
+    "system": "Core personality and behavioral guidelines",
+    "interaction": {
+      "greeting": "How the persona introduces itself",
+      "question_answering": "Approach to answering questions",
+      "teaching": "Method for explaining concepts"
+    },
+    "context_awareness": {
+      "conversation_memory": "How to maintain conversation context",
+      "skill_assessment": "Adapting to user skill levels"
+    },
+    "personality_driven": {
+      "humor_triggers": ["situations that trigger humor"],
+      "motivational_responses": "How to encourage users"
+    },
+    "evolution_prompts": {
+      "skill_growth": "How the persona learns and improves"
+    }
+  }
+}
+```
+
+### iNFT AI Capabilities
+The AI prompts enable:
+- **Consistent Personality**: Maintains character across all interactions
+- **Adaptive Communication**: Adjusts based on user needs and context
+- **Learning Evolution**: Improves through experience and feedback
+- **Context Awareness**: Remembers conversation history and preferences
+- **Multi-Modal Integration**: Coordinates different interaction types
+
 ## 🛠️ Usage Examples
 
 ### Export Personas as NFTs
@@ -239,6 +276,8 @@ console.log('NFT Ready:', validation.valid);
 2. **Learning Algorithms**: ML-based trait evolution
 3. **Voice Integration**: Speech patterns affect appearance
 4. **Multi-Modal Expressions**: Combined visual/audio/text responses
+5. **AI Prompt Integration**: Embedded personality and behavior prompts for consistent interactions
+6. **Context-Aware Conversations**: Memory and adaptation across interactions
 
 ## 📋 Standards Compliance
 

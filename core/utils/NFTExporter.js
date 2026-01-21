@@ -68,6 +68,12 @@ export default class NFTExporter {
       metadata.evolution_rules = this.processEvolutionRules(personaData);
     }
 
+    // Add AI prompts for iNFT functionality
+    const aiPrompts = personaData.ai_prompts || personaData.appearance?.ai_prompts;
+    if (aiPrompts) {
+      metadata.ai_capabilities = this.processAICapabilities(aiPrompts);
+    }
+
     // Add private data if requested (for owner-only access)
     if (includePrivate) {
       metadata.private_data = this.processPrivateData(personaData);
@@ -190,6 +196,26 @@ export default class NFTExporter {
     }
 
     return rules;
+  }
+
+  /**
+   * Process AI capabilities for iNFT functionality
+   */
+  processAICapabilities(aiPrompts) {
+    return {
+      system_prompt: aiPrompts.system,
+      interaction_modes: Object.keys(aiPrompts.interaction || {}),
+      context_awareness: aiPrompts.context_awareness ? Object.keys(aiPrompts.context_awareness) : [],
+      personality_traits: aiPrompts.personality_driven ? Object.keys(aiPrompts.personality_driven) : [],
+      evolution_capabilities: aiPrompts.evolution_prompts ? Object.keys(aiPrompts.evolution_prompts) : [],
+      intelligent_features: {
+        conversation_memory: true,
+        adaptive_communication: true,
+        personality_driven_responses: true,
+        context_aware_interactions: true,
+        continuous_learning: true
+      }
+    };
   }
 
   /**
