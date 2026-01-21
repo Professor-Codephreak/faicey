@@ -199,14 +199,16 @@ export class ProfessorCodephreakPersona {
    * @returns {Promise<void>}
    */
   async initializeControllers() {
-    // Initialize expression controller
-    this.expressionController = new ExpressionController(this.renderer.face, {
+    // Initialize wireframe controller first
+    this.wireframeController = new WireframeController(this.renderer.face, {
+      thickness: this.config.appearance.wireframe.thickness,
       logger: this.logger
     });
 
-    // Initialize wireframe controller
-    this.wireframeController = new WireframeController(this.renderer.face, {
-      thickness: this.config.appearance.wireframe.thickness,
+    // Initialize expression controller with wireframe controller for visual effects
+    this.expressionController = new ExpressionController(this.renderer.face, {
+      wireframeController: this.wireframeController,
+      baseColor: this.config.appearance.color,
       logger: this.logger
     });
 
@@ -514,12 +516,12 @@ export class ProfessorCodephreakPersona {
   async dispose() {
     this.logger.info('Disposing Professor Codephreak persona');
 
-    if (this.wireframeController) {
-      this.wireframeController.dispose();
+    if (this.expressionController) {
+      this.expressionController.stopAllEffects();
     }
 
-    if (this.expressionController) {
-      // Clean up any animations
+    if (this.wireframeController) {
+      this.wireframeController.dispose();
     }
 
     this.renderer = null;

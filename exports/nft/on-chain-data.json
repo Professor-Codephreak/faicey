@@ -1,0 +1,24 @@
+{
+  "baseURI": "ipfs://QmXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/",
+  "contractURI": "ipfs://QmXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/collection.json",
+  "maxSupply": 10000,
+  "royaltyInfo": {
+    "recipient": "0x1234567890123456789012345678901234567890",
+    "bps": 250
+  },
+  "dynamicTraits": [
+    "intelligence",
+    "experience",
+    "mood",
+    "energy",
+    "personality_evolution"
+  ],
+  "evolutionEnabled": true,
+  "interactionTracking": true,
+  "ownerBenefits": [
+    "direct_interaction",
+    "custom_evolution",
+    "exclusive_content",
+    "governance_rights"
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "name": "Faicey AI Personas",
+  "description": "Dynamic AI personas that evolve with interaction. Each persona is an intelligent NFT (iNFT) capable of learning, adapting, and providing unique AI experiences.",
+  "image": "ipfs://QmXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/collection-image.png",
+  "external_link": "https://faicey.ai",
+  "seller_fee_basis_points": 250,
+  "fee_recipient": "0x1234567890123456789012345678901234567890",
+  "properties": {
+    "category": "collectibles",
+    "subcategory": "ai-personas",
+    "total_supply": 1,
+    "dynamic": true,
+    "intelligent": true
+  },
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "values": [
+        "AI Persona"
+      ]
+    },
+    {
+      "trait_type": "Rarity",
+      "values": [
+        "Common",
+        "Rare",
+        "Epic",
+        "Legendary"
+      ]
+    },
+    {
+      "trait_type": "Specialty",
+      "values": [
+        "Coding Expert",
+        "General Intelligence",
+        "Customer Service",
+        "Wisdom & Insight",
+        "Multimodal Intelligence"
+      ]
+    },
+    {
+      "trait_type": "Dynamic Traits",
+      "values": [
+        "Intelligence",
+        "Experience",
+        "Mood",
+        "Energy",
+        "Adaptability"
+      ]
+    }
+  ]
+}

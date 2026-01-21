@@ -1,0 +1,255 @@
+{
+  "name": "Professor Codephreak #001",
+  "description": "Dynamic AI persona representing Professor Codephreak - the ultimate coding mentor. Features intelligent expressions, anatomical skull wireframe, and adaptive behavior that evolves with interaction.",
+  "image": "ipfs://QmXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/professor-codephreak.png",
+  "external_url": "https://faicey.ai/personas/professor-codephreak",
+  "animation_url": "ipfs://QmXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/professor-codephreak.html",
+  "interactive_url": "https://faicey.ai/interactive/professor-codephreak",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "AI Persona"
+    },
+    {
+      "trait_type": "Specialty",
+      "value": "Coding Expert"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Legendary"
+    },
+    {
+      "trait_type": "Intelligence",
+      "value": "High",
+      "max_value": 100,
+      "dynamic": true
+    },
+    {
+      "trait_type": "Experience",
+      "value": "Master",
+      "dynamic": true
+    },
+    {
+      "trait_type": "Mood",
+      "value": "Focused",
+      "dynamic": true
+    },
+    {
+      "trait_type": "Energy",
+      "value": 85,
+      "max_value": 100,
+      "dynamic": true
+    },
+    {
+      "trait_type": "Intelligence",
+      "value": 95,
+      "max_value": 100,
+      "dynamic": true,
+      "evolution_rate": 0.1,
+      "decay_rate": -0.05,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "Experience",
+      "value": "Master",
+      "dynamic": true,
+      "display_type": "level",
+      "levels": [
+        "Novice",
+        "Apprentice",
+        "Expert",
+        "Master",
+        "Legendary"
+      ]
+    },
+    {
+      "trait_type": "Mood",
+      "value": "Focused",
+      "dynamic": true
+    },
+    {
+      "trait_type": "Energy",
+      "value": 85,
+      "max_value": 100,
+      "dynamic": true,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "Personality Evolution",
+      "dynamic": true
+    }
+  ],
+  "properties": {
+    "category": "persona",
+    "creators": [
+      {
+        "address": "0x1234567890123456789012345678901234567890",
+        "share": 100
+      }
+    ],
+    "files": [
+      {
+        "uri": "ipfs://QmXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/professor-codephreak.png",
+        "type": "image/png",
+        "cdn": true
+      },
+      {
+        "uri": "ipfs://QmXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/professor-codephreak.html",
+        "type": "text/html",
+        "cdn": true
+      }
+    ]
+  },
+  "faicey": {
+    "version": "1.0.0",
+    "id": "professor-codephreak",
+    "type": "intelligent-nft",
+    "dynamic": true,
+    "evolution_capable": true,
+    "last_updated": "2026-01-21T00:03:17.780Z"
+  },
+  "dynamic_properties": {
+    "traits": [
+      {
+        "name": "Intelligence",
+        "current_value": 95,
+        "min_value": 80,
+        "max_value": 100,
+        "growth_rate": 0.1,
+        "decay_rate": -0.05,
+        "triggers": [
+          "successful_code_review",
+          "teaching_session"
+        ],
+        "last_updated": "2026-01-21T00:03:17.781Z"
+      },
+      {
+        "name": "Experience",
+        "current_value": "Master",
+        "triggers": [],
+        "last_updated": "2026-01-21T00:03:17.781Z"
+      },
+      {
+        "name": "Mood",
+        "current_value": "Focused",
+        "triggers": [],
+        "last_updated": "2026-01-21T00:03:17.781Z"
+      },
+      {
+        "name": "Energy",
+        "current_value": 85,
+        "min_value": 0,
+        "max_value": 100,
+        "triggers": [],
+        "last_updated": "2026-01-21T00:03:17.781Z"
+      },
+      {
+        "name": "Personality Evolution",
+        "triggers": [],
+        "last_updated": "2026-01-21T00:03:17.781Z"
+      }
+    ],
+    "animations": [
+      {
+        "name": "idle_cycle",
+        "sequence": [
+          "neutral",
+          "thinking",
+          "blink",
+          "neutral"
+        ],
+        "duration": 120000,
+        "interruptible": true,
+        "triggers": []
+      },
+      {
+        "name": "focus_mode",
+        "sequence": [
+          "concentrated",
+          "thinking",
+          "pulse_effect"
+        ],
+        "duration": 300000,
+        "interruptible": false,
+        "triggers": [
+          "deep_work",
+          "complex_task"
+        ]
+      },
+      {
+        "name": "celebration",
+        "sequence": [
+          "surprised",
+          "happy",
+          "sparkle_effect",
+          "eureka"
+        ],
+        "duration": 10000,
+        "interruptible": false,
+        "triggers": [
+          "success",
+          "achievement"
+        ]
+      }
+    ],
+    "interactions": {
+      "conversation_streak": 0,
+      "total_interactions": 1247,
+      "successful_sessions": 892,
+      "avg_session_length": 450000,
+      "preferred_topics": [
+        "algorithms",
+        "debugging",
+        "python",
+        "javascript"
+      ],
+      "learning_progress": {
+        "new_concepts_explained": 45,
+        "user_understanding_improved": 78
+      }
+    },
+    "mood_system": {
+      "current": "Focused",
+      "states": [
+        "Sleepy",
+        "Neutral",
+        "Focused",
+        "Excited",
+        "Overwhelmed"
+      ],
+      "transitions": {
+        "idle_timeout": "Sleepy",
+        "interaction_start": "Neutral",
+        "deep_focus": "Focused",
+        "eureka_moment": "Excited",
+        "complex_task": "Overwhelmed"
+      },
+      "decay_time": 300000
+    }
+  },
+  "evolution_rules": {
+    "xp_system": {
+      "base_xp_rate": 10,
+      "multipliers": {
+        "rare_interaction": 2,
+        "milestone": 5,
+        "collaboration": 1.5
+      }
+    },
+    "level_progression": {
+      "xp_required": [
+        0,
+        100,
+        500,
+        1500,
+        5000
+      ],
+      "unlocks_per_level": [
+        "new_expression",
+        "enhanced_animation",
+        "special_ability",
+        "visual_upgrade"
+      ]
+    }
+  }
+}

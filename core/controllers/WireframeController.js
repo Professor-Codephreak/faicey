@@ -148,10 +148,12 @@ export default class WireframeController {
 
   /**
    * Create 3D skull wireframe with anatomical overlay
+   * Creates static wireframe unaffected by morph targets
    */
   createSkullWireframe() {
-    const geometry = this.faceMesh.geometry;
-    const wireframeGeometry = new THREE.WireframeGeometry(geometry);
+    // Create wireframe from base geometry without morph target deformation
+    const baseGeometry = this.createStaticBaseGeometry();
+    const wireframeGeometry = new THREE.WireframeGeometry(baseGeometry);
 
     // Create multiple wireframe layers for 3D effect
     this.createWireframeLayers(wireframeGeometry);
@@ -160,6 +162,29 @@ export default class WireframeController {
     this.addAnatomicalOverlays();
 
     return this.wireframeLines;
+  }
+
+  /**
+   * Create static base geometry for wireframe (unaffected by morph targets)
+   */
+  createStaticBaseGeometry() {
+    // Clone the geometry to avoid affecting the original
+    const staticGeometry = this.faceMesh.geometry.clone();
+
+    // Reset all morph target influences to create static base
+    if (staticGeometry.morphAttributes && staticGeometry.morphAttributes.position) {
+      // Create base geometry by applying zero morph influences
+      const basePositions = staticGeometry.attributes.position.array.slice();
+
+      // Reset morph influences
+      staticGeometry.morphTargetInfluences = new Array(staticGeometry.morphAttributes.position.length).fill(0);
+
+      // Apply the base positions (no morph deformation)
+      staticGeometry.attributes.position.array.set(basePositions);
+      staticGeometry.attributes.position.needsUpdate = true;
+    }
+
+    return staticGeometry;
   }
 
   /**

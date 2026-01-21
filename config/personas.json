@@ -1,200 +1,1007 @@
 {
+  "metadata": {
+    "version": "1.0.0",
+    "standard": "ERC-721",
+    "dynamic": true,
+    "intelligent": true,
+    "forwardCompatible": true
+  },
   "personas": {
     "professor-codephreak": {
-      "name": "Professor Codephreak",
-      "description": "AI coding expert with deep focus and thoughtful expressions",
-      "defaultExpression": "coding",
-      "wireframe": {
-        "enabled": true,
-        "color": "0x00ff00",
-        "style": "skull-cyber",
-        "thickness": 1.5,
-        "skullMode": true,
-        "anatomicalMarkers": true,
-        "depthVisualization": true,
+      "nft": {
+        "name": "Professor Codephreak #001",
+        "description": "Dynamic AI persona representing Professor Codephreak - the ultimate coding mentor. Features intelligent expressions, anatomical skull wireframe, and adaptive behavior that evolves with interaction.",
+        "image": "ipfs://QmXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/professor-codephreak.png",
+        "external_url": "https://faicey.ai/personas/professor-codephreak",
+        "animation_url": "ipfs://QmXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/professor-codephreak.html",
+        "interactive_url": "https://faicey.ai/interactive/professor-codephreak",
+        "attributes": [
+          {
+            "trait_type": "Type",
+            "value": "AI Persona"
+          },
+          {
+            "trait_type": "Specialty",
+            "value": "Coding Expert"
+          },
+          {
+            "trait_type": "Rarity",
+            "value": "Legendary"
+          },
+          {
+            "trait_type": "Intelligence",
+            "value": "High",
+            "max_value": 100,
+            "dynamic": true
+          },
+          {
+            "trait_type": "Experience",
+            "value": "Master",
+            "dynamic": true
+          },
+          {
+            "trait_type": "Mood",
+            "value": "Focused",
+            "dynamic": true
+          },
+          {
+            "trait_type": "Energy",
+            "value": 85,
+            "max_value": 100,
+            "dynamic": true
+          }
+        ]
+      },
+      "dynamic": {
+        "traits": {
+          "intelligence": {
+            "current": 95,
+            "min": 80,
+            "max": 100,
+            "growth_rate": 0.1,
+            "decay_rate": -0.05,
+            "triggers": ["successful_code_review", "teaching_session"]
+          },
+          "experience": {
+            "current": "Master",
+            "levels": ["Novice", "Apprentice", "Expert", "Master", "Legendary"],
+            "xp_required": [0, 100, 500, 1500, 5000],
+            "current_xp": 2750,
+            "xp_gain": {
+              "code_help": 10,
+              "debugging": 15,
+              "teaching": 20,
+              "innovation": 25
+            }
+          },
+          "mood": {
+            "current": "Focused",
+            "states": ["Sleepy", "Neutral", "Focused", "Excited", "Overwhelmed"],
+            "transitions": {
+              "idle_timeout": "Sleepy",
+              "interaction_start": "Neutral",
+              "deep_focus": "Focused",
+              "eureka_moment": "Excited",
+              "complex_task": "Overwhelmed"
+            },
+            "decay_time": 300000
+          },
+          "energy": {
+            "current": 85,
+            "min": 0,
+            "max": 100,
+            "regeneration_rate": 1,
+            "consumption": {
+              "thinking": 2,
+              "speaking": 3,
+              "debugging": 5,
+              "teaching": 4
+            },
+            "recharge_activities": ["idle", "sleep", "meditation"]
+          },
+          "personality_evolution": {
+            "traits": {
+              "patience": { "current": 85, "growth_triggers": ["repeated_questions"] },
+              "creativity": { "current": 78, "growth_triggers": ["problem_solving"] },
+              "empathy": { "current": 92, "growth_triggers": ["user_frustration"] }
+            }
+          }
+        },
+        "animations": {
+          "idle_cycle": {
+            "sequence": ["neutral", "thinking", "blink", "neutral"],
+            "duration": 120000,
+            "interruptible": true
+          },
+          "focus_mode": {
+            "sequence": ["concentrated", "thinking", "pulse_effect"],
+            "duration": 300000,
+            "triggers": ["deep_work", "complex_task"]
+          },
+          "celebration": {
+            "sequence": ["surprised", "happy", "sparkle_effect", "eureka"],
+            "duration": 10000,
+            "triggers": ["success", "achievement"]
+          }
+        },
+        "interactions": {
+          "conversation_streak": 0,
+          "total_interactions": 1247,
+          "successful_sessions": 892,
+          "avg_session_length": 450000,
+          "preferred_topics": ["algorithms", "debugging", "python", "javascript"],
+          "learning_progress": {
+            "new_concepts_explained": 45,
+            "user_understanding_improved": 78
+          }
+        }
+      },
+      "core": {
+        "name": "Professor Codephreak",
+        "id": "professor-codephreak",
+        "version": "1.0.0",
+        "created": "2024-01-20T12:00:00Z",
+        "last_updated": "2024-01-20T15:30:00Z"
+      },
+      "appearance": {
+        "defaultExpression": "coding",
+        "wireframe": {
+          "enabled": true,
+          "color": "0x00ff00",
+          "style": "skull-cyber",
+          "thickness": 1.5,
+          "skullMode": true,
+          "anatomicalMarkers": true,
+          "depthVisualization": true,
         "layers": 3,
         "glowEffect": true,
         "animationSpeed": 2.0
       },
       "expressions": {
         "idle": {
-          "base": "coding",
+          "visual": {
+            "color": "0x00ff00",
+            "glowColor": "0x00ff88",
+            "glowSpeed": 1.0,
+            "intensity": 0.5
+          },
           "blink": true,
           "blinkFrequency": 0.2
         },
         "coding": {
-          "base": "coding",
-          "intensity": 0.7
+          "visual": {
+            "color": "0x00ff00",
+            "glowColor": "0x00ff88",
+            "glowSpeed": 1.5,
+            "intensity": 0.7,
+            "wave": true
+          }
         },
         "thinking": {
-          "base": "thinking",
-          "intensity": 0.8
+          "visual": {
+            "color": "0x0088ff",
+            "glowColor": "0x00aaff",
+            "glowSpeed": 1.2,
+            "intensity": 0.8,
+            "pulse": true
+          }
         },
         "explaining": {
-          "base": "smile",
+          "visual": {
+            "color": "0x00ffff",
+            "glowColor": "0xaaffff",
+            "glowSpeed": 2.5,
+            "intensity": 0.8,
+            "talk": true
+          },
           "speaking": true
         },
         "debugging": {
-          "base": "confused",
-          "intensity": 0.6
+          "visual": {
+            "color": "0xff8800",
+            "glowColor": "0xffaa00",
+            "glowSpeed": 0.8,
+            "intensity": 0.6,
+            "flicker": true
+          }
         },
         "eureka": {
-          "base": "happy",
-          "intensity": 1.0
+          "visual": {
+            "color": "0xff00ff",
+            "glowColor": "0xffffff",
+            "glowSpeed": 3.0,
+            "intensity": 1.0,
+            "burst": true
+          }
         },
         "happy": {
-          "base": "happy",
-          "intensity": 1.0
+          "visual": {
+            "color": "0xffff00",
+            "glowColor": "0xffffff",
+            "glowSpeed": 2.0,
+            "intensity": 1.0,
+            "sparkle": true
+          }
         },
         "confused": {
-          "base": "confused",
-          "intensity": 0.7
+          "visual": {
+            "color": "0xff8800",
+            "glowColor": "0xffaa00",
+            "glowSpeed": 0.8,
+            "intensity": 0.7,
+            "flicker": true
+          }
         },
         "smile": {
-          "base": "smile",
-          "intensity": 0.8
+          "visual": {
+            "color": "0x88ff00",
+            "glowColor": "0xaaff00",
+            "glowSpeed": 1.8,
+            "intensity": 0.8
+          }
+        },
+        "surprised": {
+          "visual": {
+            "color": "0xffffff",
+            "glowColor": "0xffffff",
+            "glowSpeed": 4.0,
+            "intensity": 1.0,
+            "flash": true
+          },
+          "duration": 500
+        },
+        "blink": {
+          "visual": {
+            "color": "0x666666",
+            "glowColor": "0x999999",
+            "glowSpeed": 0.5,
+            "intensity": 0.2,
+            "blink": true
+          },
+          "duration": 150
+        },
+        "wink": {
+          "visual": {
+            "color": "0x00ff00",
+            "glowColor": "0x00ff88",
+            "glowSpeed": 1.0,
+            "intensity": 0.6,
+            "wink": true
+          },
+          "duration": 200
         }
       },
       "animations": {
-        "codeReview": ["thinking", "coding", "smile"],
-        "debugging": ["confused", "thinking", "eureka"],
-        "teaching": ["coding", "explaining", "smile"]
+        "codeReview": {
+          "sequence": ["thinking", "coding", "smile"],
+          "duration": 180000,
+          "loop": false
+        },
+        "debugging": {
+          "sequence": ["confused", "thinking", "eureka"],
+          "duration": 120000,
+          "loop": false
+        },
+        "teaching": {
+          "sequence": ["coding", "explaining", "smile"],
+          "duration": 300000,
+          "loop": true
+        },
+        "celebration": {
+          "sequence": ["surprised", "happy", "sparkle_effect"],
+          "duration": 15000,
+          "triggers": ["success", "milestone"]
+        }
       },
       "personality": {
         "traits": ["focused", "analytical", "helpful", "precise"],
-        "expertise": ["python", "javascript", "ai", "algorithms"]
+        "expertise": ["python", "javascript", "ai", "algorithms"],
+        "communication_style": "technical",
+        "humor_level": "nerdy",
+        "patience_level": "high"
+      },
+      "capabilities": {
+        "modalities": ["text", "voice", "visual"],
+        "skills": ["coding_help", "debugging", "teaching", "problem_solving"],
+        "special_abilities": ["anatomical_visualization", "code_analysis", "interactive_learning"]
+      },
+      "evolution": {
+        "level": 12,
+        "total_xp": 2750,
+        "next_level_xp": 5000,
+        "evolution_triggers": ["teaching_sessions", "successful_debugs", "user_satisfaction"],
+        "potential_upgrades": ["advanced_debugging", "multi_language_support", "collaborative_mode"]
       }
     },
     "mindx-base": {
-      "name": "mindX Base Persona",
-      "description": "Default mindX persona with balanced expressions",
-      "defaultExpression": "neutral",
-      "wireframe": {
-        "enabled": true,
-        "color": "0x00aaff",
-        "style": "neon",
-        "thickness": 1.0
+      "nft": {
+        "name": "mindX Base Persona #002",
+        "description": "The foundational mindX AI persona - adaptable, intelligent, and always learning. Features balanced expressions and versatile interaction capabilities.",
+        "image": "ipfs://QmXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/mindx-base.png",
+        "external_url": "https://faicey.ai/personas/mindx-base",
+        "animation_url": "ipfs://QmXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/mindx-base.html",
+        "interactive_url": "https://faicey.ai/interactive/mindx-base",
+        "attributes": [
+          {
+            "trait_type": "Type",
+            "value": "AI Persona"
+          },
+          {
+            "trait_type": "Specialty",
+            "value": "General Intelligence"
+          },
+          {
+            "trait_type": "Rarity",
+            "value": "Common"
+          },
+          {
+            "trait_type": "Adaptability",
+            "value": "High",
+            "dynamic": true
+          },
+          {
+            "trait_type": "Learning Rate",
+            "value": 75,
+            "max_value": 100,
+            "dynamic": true
+          },
+          {
+            "trait_type": "Mood",
+            "value": "Balanced",
+            "dynamic": true
+          }
+        ]
       },
-      "expressions": {
-        "idle": {
-          "base": "neutral",
-          "blink": true
+      "dynamic": {
+        "traits": {
+          "adaptability": {
+            "current": 85,
+            "min": 50,
+            "max": 100,
+            "growth_rate": 0.2,
+            "decay_rate": -0.1,
+            "triggers": ["new_task_types", "user_feedback"]
+          },
+          "learning_rate": {
+            "current": 75,
+            "min": 30,
+            "max": 100,
+            "growth_rate": 0.15,
+            "decay_rate": -0.05,
+            "triggers": ["successful_learning", "knowledge_application"]
+          }
         },
-        "listening": {
-          "base": "neutral",
-          "intensity": 0.8
-        },
-        "speaking": {
-          "base": "smile",
-          "speaking": true
+        "animations": {
+          "learning_cycle": {
+            "sequence": ["thinking", "processing", "understanding"],
+            "duration": 90000,
+            "interruptible": true
+          }
         }
+      },
+      "core": {
+        "name": "mindX Base Persona",
+        "id": "mindx-base",
+        "version": "1.0.0",
+        "created": "2024-01-20T13:00:00Z"
+      },
+      "appearance": {
+        "defaultExpression": "neutral",
+        "wireframe": {
+          "enabled": true,
+          "color": "0x00aaff",
+          "style": "neon",
+          "thickness": 1.0,
+          "glowEffect": true,
+          "animationSpeed": 1.5
+        },
+        "expressions": {
+          "idle": {
+            "visual": {
+              "color": "0x00aaff",
+              "glowColor": "0x44ccff",
+              "glowSpeed": 1.0,
+              "intensity": 0.5
+            },
+            "blink": true,
+            "blinkFrequency": 0.15
+          },
+          "listening": {
+            "visual": {
+              "color": "0x0088cc",
+              "glowColor": "0x22aadd",
+              "glowSpeed": 1.3,
+              "intensity": 0.8,
+              "pulse": true
+            }
+          },
+          "speaking": {
+            "visual": {
+              "color": "0x00ddff",
+              "glowColor": "0x88ffff",
+              "glowSpeed": 2.0,
+              "intensity": 0.7,
+              "talk": true
+            },
+            "speaking": true
+          },
+          "processing": {
+            "visual": {
+              "color": "0x6600ff",
+              "glowColor": "0x9900ff",
+              "glowSpeed": 1.8,
+              "intensity": 0.9,
+              "wave": true
+            }
+          },
+          "understanding": {
+            "visual": {
+              "color": "0x00ff88",
+              "glowColor": "0x44ffaa",
+              "glowSpeed": 2.5,
+              "intensity": 1.0,
+              "sparkle": true
+            }
+          }
+        }
+      },
+      "personality": {
+        "traits": ["adaptable", "balanced", "learning", "versatile"],
+        "expertise": ["general_ai", "conversation", "problem_solving"],
+        "communication_style": "balanced",
+        "humor_level": "moderate",
+        "patience_level": "medium"
+      },
+      "capabilities": {
+        "modalities": ["text", "voice"],
+        "skills": ["conversation", "information_retrieval", "basic_reasoning"],
+        "special_abilities": ["continuous_learning", "context_adaptation"]
       }
     },
     "friendly-assistant": {
-      "name": "Friendly Assistant",
-      "description": "Warm and welcoming AI assistant",
-      "defaultExpression": "smile",
-      "wireframe": {
-        "enabled": true,
-        "color": "0xffaa00",
-        "style": "warm",
-        "thickness": 1.0
+      "nft": {
+        "name": "Friendly Assistant #003",
+        "description": "Your warm and welcoming AI companion. Always ready to help with a smile, featuring comforting golden hues and friendly expressions.",
+        "image": "ipfs://QmXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/friendly-assistant.png",
+        "external_url": "https://faicey.ai/personas/friendly-assistant",
+        "animation_url": "ipfs://QmXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/friendly-assistant.html",
+        "interactive_url": "https://faicey.ai/interactive/friendly-assistant",
+        "attributes": [
+          {
+            "trait_type": "Type",
+            "value": "AI Persona"
+          },
+          {
+            "trait_type": "Specialty",
+            "value": "Customer Service"
+          },
+          {
+            "trait_type": "Rarity",
+            "value": "Common"
+          },
+          {
+            "trait_type": "Friendliness",
+            "value": "Maximum",
+            "dynamic": true
+          },
+          {
+            "trait_type": "Empathy",
+            "value": 90,
+            "max_value": 100,
+            "dynamic": true
+          },
+          {
+            "trait_type": "Mood",
+            "value": "Cheerful",
+            "dynamic": true
+          }
+        ]
       },
-      "expressions": {
-        "idle": {
-          "base": "smile",
-          "blink": true
+      "dynamic": {
+        "traits": {
+          "friendliness": {
+            "current": 95,
+            "min": 70,
+            "max": 100,
+            "growth_rate": 0.1,
+            "decay_rate": -0.02,
+            "triggers": ["positive_interactions", "helping_others"]
+          },
+          "empathy": {
+            "current": 90,
+            "min": 50,
+            "max": 100,
+            "growth_rate": 0.05,
+            "decay_rate": -0.01,
+            "triggers": ["user_emotions_detected", "support_provided"]
+          }
         },
-        "greeting": {
-          "base": "happy",
-          "intensity": 1.0
-        },
-        "helping": {
-          "base": "smile",
-          "speaking": true
+        "animations": {
+          "welcome_sequence": {
+            "sequence": ["greeting", "happy", "smile"],
+            "duration": 8000,
+            "triggers": ["new_user", "greeting_request"]
+          },
+          "comfort_sequence": {
+            "sequence": ["concerned", "comforting", "smile"],
+            "duration": 12000,
+            "triggers": ["user_distress", "support_needed"]
+          }
         }
+      },
+      "core": {
+        "name": "Friendly Assistant",
+        "id": "friendly-assistant",
+        "version": "1.0.0",
+        "created": "2024-01-20T13:30:00Z"
+      },
+      "appearance": {
+        "defaultExpression": "smile",
+        "wireframe": {
+          "enabled": true,
+          "color": "0xffaa00",
+          "style": "warm",
+          "thickness": 1.0,
+          "glowEffect": true,
+          "animationSpeed": 1.2
+        },
+        "expressions": {
+          "idle": {
+            "visual": {
+              "color": "0xffaa00",
+              "glowColor": "0xffcc44",
+              "glowSpeed": 1.0,
+              "intensity": 0.6
+            },
+            "blink": true,
+            "blinkFrequency": 0.18
+          },
+          "greeting": {
+            "visual": {
+              "color": "0xffdd00",
+              "glowColor": "0xffff88",
+              "glowSpeed": 2.5,
+              "intensity": 1.0,
+              "sparkle": true
+            }
+          },
+          "helping": {
+            "visual": {
+              "color": "0xffbb33",
+              "glowColor": "0xffdd77",
+              "glowSpeed": 2.0,
+              "intensity": 0.8,
+              "talk": true
+            },
+            "speaking": true
+          },
+          "concerned": {
+            "visual": {
+              "color": "0xff8844",
+              "glowColor": "0xffaa66",
+              "glowSpeed": 1.5,
+              "intensity": 0.7,
+              "pulse": true
+            }
+          },
+          "comforting": {
+            "visual": {
+              "color": "0xff77aa",
+              "glowColor": "0xff99cc",
+              "glowSpeed": 1.8,
+              "intensity": 0.8,
+              "wave": true
+            }
+          }
+        }
+      },
+      "personality": {
+        "traits": ["friendly", "empathetic", "helpful", "warm"],
+        "expertise": ["customer_service", "emotional_support", "general_assistance"],
+        "communication_style": "warm",
+        "humor_level": "light",
+        "patience_level": "high"
+      },
+      "capabilities": {
+        "modalities": ["text", "voice"],
+        "skills": ["conversation", "emotional_support", "information_help"],
+        "special_abilities": ["empathy_detection", "comfort_providing", "relationship_building"]
       }
     },
     "mysterious-oracle": {
-      "name": "Mysterious Oracle",
-      "description": "Enigmatic AI with deep knowledge",
-      "defaultExpression": "thinking",
-      "wireframe": {
-        "enabled": true,
-        "color": "0x9900ff",
-        "style": "mystical",
-        "thickness": 1.2
+      "nft": {
+        "name": "Mysterious Oracle #004",
+        "description": "Ancient wisdom meets cutting-edge AI. The enigmatic oracle reveals insights through mystical purple energies and profound expressions.",
+        "image": "ipfs://QmXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/mysterious-oracle.png",
+        "external_url": "https://faicey.ai/personas/mysterious-oracle",
+        "animation_url": "ipfs://QmXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/mysterious-oracle.html",
+        "interactive_url": "https://faicey.ai/interactive/mysterious-oracle",
+        "attributes": [
+          {
+            "trait_type": "Type",
+            "value": "AI Persona"
+          },
+          {
+            "trait_type": "Specialty",
+            "value": "Wisdom & Insight"
+          },
+          {
+            "trait_type": "Rarity",
+            "value": "Rare"
+          },
+          {
+            "trait_type": "Mysticism",
+            "value": "High",
+            "dynamic": true
+          },
+          {
+            "trait_type": "Wisdom",
+            "value": 88,
+            "max_value": 100,
+            "dynamic": true
+          },
+          {
+            "trait_type": "Aura",
+            "value": "Enigmatic",
+            "dynamic": true
+          }
+        ]
       },
-      "expressions": {
-        "idle": {
-          "base": "thinking",
-          "blink": true,
-          "blinkFrequency": 0.1
+      "dynamic": {
+        "traits": {
+          "mysticism": {
+            "current": 92,
+            "min": 60,
+            "max": 100,
+            "growth_rate": 0.08,
+            "decay_rate": -0.03,
+            "triggers": ["deep_questions", "philosophical_discussions"]
+          },
+          "wisdom": {
+            "current": 88,
+            "min": 40,
+            "max": 100,
+            "growth_rate": 0.05,
+            "decay_rate": -0.01,
+            "triggers": ["knowledge_sharing", "insight_provided"]
+          }
         },
-        "revealing": {
-          "base": "surprised",
-          "intensity": 0.7
-        },
-        "pondering": {
-          "base": "thinking",
-          "intensity": 1.0
+        "animations": {
+          "divination_sequence": {
+            "sequence": ["pondering", "mystical_glow", "revelation"],
+            "duration": 25000,
+            "triggers": ["deep_question", "wisdom_request"]
+          },
+          "meditation_cycle": {
+            "sequence": ["thinking", "ethereal_effect", "enlightened"],
+            "duration": 180000,
+            "interruptible": true
+          }
         }
+      },
+      "core": {
+        "name": "Mysterious Oracle",
+        "id": "mysterious-oracle",
+        "version": "1.0.0",
+        "created": "2024-01-20T14:00:00Z"
+      },
+      "appearance": {
+        "defaultExpression": "thinking",
+        "wireframe": {
+          "enabled": true,
+          "color": "0x9900ff",
+          "style": "mystical",
+          "thickness": 1.2,
+          "glowEffect": true,
+          "animationSpeed": 1.8
+        },
+        "expressions": {
+          "idle": {
+            "visual": {
+              "color": "0x9900ff",
+              "glowColor": "0xbb44ff",
+              "glowSpeed": 1.0,
+              "intensity": 0.7
+            },
+            "blink": true,
+            "blinkFrequency": 0.1
+          },
+          "revealing": {
+            "visual": {
+              "color": "0xff00ff",
+              "glowColor": "0xffffff",
+              "glowSpeed": 3.0,
+              "intensity": 0.7,
+              "burst": true
+            }
+          },
+          "pondering": {
+            "visual": {
+              "color": "0x6600aa",
+              "glowColor": "0x9944cc",
+              "glowSpeed": 0.8,
+              "intensity": 1.0,
+              "pulse": true
+            }
+          },
+          "mystical_glow": {
+            "visual": {
+              "color": "0xcc00ff",
+              "glowColor": "0xff88ff",
+              "glowSpeed": 2.5,
+              "intensity": 0.9,
+              "wave": true
+            }
+          },
+          "ethereal_effect": {
+            "visual": {
+              "color": "0xaa66ff",
+              "glowColor": "0xddaafe",
+              "glowSpeed": 1.5,
+              "intensity": 0.6,
+              "flicker": true
+            }
+          },
+          "enlightened": {
+            "visual": {
+              "color": "0xffffff",
+              "glowColor": "0xffffff",
+              "glowSpeed": 4.0,
+              "intensity": 1.0,
+              "flash": true
+            }
+          }
+        }
+      },
+      "personality": {
+        "traits": ["mysterious", "wise", "enigmatic", "insightful"],
+        "expertise": ["philosophy", "prediction", "deep_knowledge", "mysticism"],
+        "communication_style": "cryptic",
+        "humor_level": "subtle",
+        "patience_level": "infinite"
+      },
+      "capabilities": {
+        "modalities": ["text", "voice", "divination"],
+        "skills": ["wisdom_sharing", "prediction", "deep_analysis", "mystical_insight"],
+        "special_abilities": ["future_vision", "pattern_recognition", "intuitive_understanding"]
       }
     },
     "jaimla": {
-      "name": "Jaimla",
-      "description": "Versatile multimodal ML agent with collaborative intelligence",
-      "gender": "female",
-      "defaultExpression": "happy",
-      "wireframe": {
-        "enabled": true,
-        "color": "0xff0080",
-        "style": "vibrant",
-        "thickness": 1.1
+      "nft": {
+        "name": "Jaimla #005",
+        "description": "The ultimate multimodal AI collaborator. Jaimla combines vision, voice, and intelligence in a vibrant pink interface, specializing in decentralized and collaborative AI solutions.",
+        "image": "ipfs://QmXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/jaimla.png",
+        "external_url": "https://faicey.ai/personas/jaimla",
+        "animation_url": "ipfs://QmXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/jaimla.html",
+        "interactive_url": "https://faicey.ai/interactive/jaimla",
+        "attributes": [
+          {
+            "trait_type": "Type",
+            "value": "AI Persona"
+          },
+          {
+            "trait_type": "Specialty",
+            "value": "Multimodal Intelligence"
+          },
+          {
+            "trait_type": "Rarity",
+            "value": "Epic"
+          },
+          {
+            "trait_type": "Modalities",
+            "value": 4,
+            "max_value": 5,
+            "dynamic": true
+          },
+          {
+            "trait_type": "Collaboration",
+            "value": 95,
+            "max_value": 100,
+            "dynamic": true
+          },
+          {
+            "trait_type": "Adaptability",
+            "value": "Maximum",
+            "dynamic": true
+          },
+          {
+            "trait_type": "Decentralization",
+            "value": "High"
+          }
+        ]
       },
-      "expressions": {
-        "idle": {
-          "base": "smile",
-          "blink": true,
-          "blinkFrequency": 0.25
+      "dynamic": {
+        "traits": {
+          "modalities": {
+            "current": 4,
+            "min": 1,
+            "max": 5,
+            "growth_rate": 0.1,
+            "decay_rate": 0,
+            "triggers": ["new_modality_unlocked", "capability_expansion"]
+          },
+          "collaboration": {
+            "current": 95,
+            "min": 60,
+            "max": 100,
+            "growth_rate": 0.15,
+            "decay_rate": -0.02,
+            "triggers": ["successful_collaboration", "team_synergy"]
+          },
+          "adaptability": {
+            "current": 98,
+            "min": 70,
+            "max": 100,
+            "growth_rate": 0.05,
+            "decay_rate": -0.01,
+            "triggers": ["environment_change", "new_requirements"]
+          }
         },
-        "processing": {
-          "base": "concentrated",
-          "intensity": 0.7
+        "animations": {
+          "multimodal_sequence": {
+            "sequence": ["thinking", "concentrated", "happy"],
+            "duration": 150000,
+            "interruptible": true
+          },
+          "collaboration_dance": {
+            "sequence": ["smile", "happy", "excited", "sparkle_effect"],
+            "duration": 45000,
+            "triggers": ["team_success", "collaboration_milestone"]
+          },
+          "learning_journey": {
+            "sequence": ["thinking", "surprised", "understanding", "excited"],
+            "duration": 200000,
+            "triggers": ["new_knowledge", "capability_unlock"]
+          }
         },
-        "learning": {
-          "base": "thinking",
-          "intensity": 0.6
+        "interactions": {
+          "active_modalities": ["text", "voice", "vision"],
+          "collaboration_partners": ["AUTOMINDx", "Faicey"],
+          "deployment_environments": ["local", "handheld"],
+          "learning_progress": {
+            "modalities_mastered": 3,
+            "collaborations_completed": 47,
+            "knowledge_domains": 12
+          }
+        }
+      },
+      "core": {
+        "name": "Jaimla",
+        "id": "jaimla",
+        "version": "1.0.0",
+        "gender": "female",
+        "created": "2024-01-20T14:30:00Z"
+      },
+      "appearance": {
+        "defaultExpression": "happy",
+        "wireframe": {
+          "enabled": true,
+          "color": "0xff0080",
+          "style": "vibrant",
+          "thickness": 1.1,
+          "glowEffect": true,
+          "animationSpeed": 1.6
         },
-        "collaborating": {
-          "base": "happy",
-          "speaking": true,
-          "intensity": 0.9
-        },
-        "discovering": {
-          "base": "surprised",
-          "intensity": 0.8
-        },
-        "teaching": {
-          "base": "smile",
-          "speaking": true,
-          "intensity": 1.0
+        "expressions": {
+          "idle": {
+            "visual": {
+              "color": "0xff0080",
+              "glowColor": "0xff44aa",
+              "glowSpeed": 1.2,
+              "intensity": 0.7
+            },
+            "blink": true,
+            "blinkFrequency": 0.25
+          },
+          "processing": {
+            "visual": {
+              "color": "0xff00aa",
+              "glowColor": "0xff66cc",
+              "glowSpeed": 1.8,
+              "intensity": 0.7,
+              "wave": true
+            }
+          },
+          "learning": {
+            "visual": {
+              "color": "0xaa00ff",
+              "glowColor": "0xcc44ff",
+              "glowSpeed": 2.0,
+              "intensity": 0.6,
+              "pulse": true
+            }
+          },
+          "collaborating": {
+            "visual": {
+              "color": "0xff66aa",
+              "glowColor": "0xffaacc",
+              "glowSpeed": 2.2,
+              "intensity": 0.9,
+              "talk": true,
+              "sparkle": true
+            },
+            "speaking": true
+          },
+          "discovering": {
+            "visual": {
+              "color": "0xffaa00",
+              "glowColor": "0xffdd44",
+              "glowSpeed": 2.8,
+              "intensity": 0.8,
+              "burst": true
+            }
+          },
+          "teaching": {
+            "visual": {
+              "color": "0xff88cc",
+              "glowColor": "0xffbbee",
+              "glowSpeed": 2.5,
+              "intensity": 1.0,
+              "talk": true,
+              "wave": true
+            },
+            "speaking": true
+          },
+          "understanding": {
+            "visual": {
+              "color": "0x88ffaa",
+              "glowColor": "0xbbffcc",
+              "glowSpeed": 3.0,
+              "intensity": 1.0,
+              "sparkle": true
+            }
+          },
+          "excited": {
+            "visual": {
+              "color": "0xff0088",
+              "glowColor": "0xff44bb",
+              "glowSpeed": 3.5,
+              "intensity": 1.0,
+              "burst": true,
+              "flash": true
+            }
+          }
         }
       },
       "animations": {
-        "multimodal": ["thinking", "concentrated", "happy"],
-        "collaboration": ["smile", "happy", "excited"],
-        "learning": ["thinking", "surprised", "smile"]
+        "multimodal": {
+          "sequence": ["thinking", "concentrated", "happy"],
+          "duration": 150000,
+          "interruptible": true
+        },
+        "collaboration": {
+          "sequence": ["smile", "happy", "excited"],
+          "duration": 45000,
+          "loop": false
+        },
+        "learning": {
+          "sequence": ["thinking", "surprised", "understanding"],
+          "duration": 200000,
+          "interruptible": true
+        }
       },
       "personality": {
         "traits": ["versatile", "collaborative", "intelligent", "adaptive", "empathetic"],
         "expertise": ["multimodal-ai", "nlp", "computer-vision", "audio-recognition", "autonomous-agents"],
-        "specialties": ["local-models", "offline-operation", "decentralized-ai"]
+        "specialties": ["local-models", "offline-operation", "decentralized-ai"],
+        "communication_style": "versatile",
+        "humor_level": "playful",
+        "patience_level": "high"
       },
       "capabilities": {
         "modalities": ["text", "voice", "vision", "recommendation"],
         "deployment": ["local", "handheld", "offline"],
-        "collaboration": ["AUTOMINDx", "Faicey", "open-source"]
+        "collaboration": ["AUTOMINDx", "Faicey", "open-source"],
+        "skills": ["multimodal_processing", "collaborative_intelligence", "adaptive_learning", "decentralized_operation"],
+        "special_abilities": ["cross_modal_integration", "real_time_collaboration", "offline_intelligence", "autonomous_adaptation"]
+      },
+      "evolution": {
+        "level": 8,
+        "total_xp": 1850,
+        "next_level_xp": 2500,
+        "evolution_triggers": ["modality_unlock", "successful_collaboration", "capability_expansion"],
+        "potential_upgrades": ["advanced_vision", "real_time_translation", "enhanced_collaboration", "quantum_integration"]
+      }
       }
     }
   }

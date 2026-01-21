@@ -17,7 +17,10 @@
     "example:basic": "node examples/basic-face.js",
     "example:modular": "node examples/modular-faicey-demo.js",
     "personas:list": "node -e \"import { createPersonaManager } from './core/index.js'; const pm = createPersonaManager(); await pm.initialize(); console.log('Available templates:', pm.getAllTemplates().map(t => t.name));\"",
-    "personas:create": "node -e \"import { createFaicey } from './core/index.js'; const faicey = createFaicey(); await faicey.initialize(); const persona = await faicey.createPersona('professor-codephreak', 'test-persona'); console.log('Created persona:', persona.name);\""
+    "personas:create": "node -e \"import { createFaicey } from './core/index.js'; const faicey = createFaicey(); await faicey.initialize(); const persona = await faicey.createPersona('professor-codephreak', 'test-persona'); console.log('Created persona:', persona.name);\"",
+    "nft:export": "node export-nft-personas.js",
+    "nft:validate": "node -e \"import('./core/index.js').then(m => { import('fs').then(fs => { const data = JSON.parse(fs.readFileSync('./config/personas.json')); Object.values(data.personas).forEach(p => { const v = m.validatePersonaForNFT(p); console.log(p.core.name + ': NFT Ready ' + (v.valid ? '✅' : '❌')); }); }); });\"",
+    "nft:version-check": "node -e \"import('./core/index.js').then(m => { const vm = m.createVersionManager(); console.log('Current version:', vm.currentVersion); });\""
   },
   "keywords": [
     "threejs",
@@ -30,7 +33,8 @@
   ],
   "dependencies": {
     "three": "^0.160.0",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "semver": "^7.6.0"
   },
   "devDependencies": {
     "http-server": "^14.1.1"

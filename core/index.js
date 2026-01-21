@@ -34,6 +34,8 @@ export { ProfessorCodephreakPersona } from '../personas/templates/professor-code
 export { Logger } from './utils/Logger.js';
 export { EventEmitter } from './utils/EventEmitter.js';
 export { MorphTarget } from './utils/MorphTargets.js';
+export { default as NFTExporter, createNFTExporter, validatePersonaForNFT } from './utils/NFTExporter.js';
+export { default as VersionManager, createVersionManager } from './utils/VersionManager.js';
 
 // Version information
 export const VERSION = '0.1.0-modular';
