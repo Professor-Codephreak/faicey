@@ -14,7 +14,7 @@
     "sync-engine": "node scripts/sync-engine.mjs",
     "preserve": "node scripts/sync-engine.mjs",
     "prestart": "node scripts/sync-engine.mjs",
-    "test": "node test/test.js",
+    "test": "node test/test.js && node src/face_clone/face_clone.test.js && node src/face_clone/autocapture.test.js",
     "demo": "node examples/jaimla-demo.js",
     "jaimla": "node examples/jaimla-demo.js",
     "oscilloscope": "node examples/oscilloscope-demo.js",
@@ -108,10 +108,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Faicey/faicey.git"
+    "url": "https://github.com/Professor-Codephreak/faicey.git"
   },
   "bugs": {
-    "url": "https://github.com/Faicey/faicey/issues"
+    "url": "https://github.com/Professor-Codephreak/faicey/issues"
   },
   "homepage": "https://mindx.pythai.net/faicey",
   "funding": {
