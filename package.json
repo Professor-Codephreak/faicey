@@ -1,0 +1,121 @@
+{
+  "name": "@mindx/faicey",
+  "version": "2.0.0",
+  "description": "Advanced 3D face rendering system with voice print analysis, frequency triggers, and inflection detection for mindX autonomous agents",
+  "main": "src/FaiceyCore.js",
+  "type": "module",
+  "imports": {
+    "#three": "./static/vendor/three.module.js"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "node server.js",
+    "sync-engine": "node scripts/sync-engine.mjs",
+    "preserve": "node scripts/sync-engine.mjs",
+    "prestart": "node scripts/sync-engine.mjs",
+    "test": "node test/test.js",
+    "demo": "node examples/jaimla-demo.js",
+    "jaimla": "node examples/jaimla-demo.js",
+    "oscilloscope": "node examples/oscilloscope-demo.js",
+    "voice-analysis": "node examples/voice-analysis.js",
+    "frequency-triggers": "node examples/frequency-triggers.js",
+    "inflection-detect": "node examples/inflection-detection.js",
+    "export:nft": "node scripts/export-nft-metadata.js",
+    "start": "node src/FaiceyCore.js --agent=jaimla",
+    "watch": "node --watch src/FaiceyCore.js",
+    "setup-voice": "./scripts/setup-voice-system.sh",
+    "voice-test": "node examples/voice-creation-test.js",
+    "enhanced-jaimla": "node examples/enhanced-jaimla-demo.js",
+    "background-test": "node examples/background-integration-test.js",
+    "voicey-bridge": "node examples/voicey-bridge-demo.js",
+    "modular-test": "node examples/modular-integration-test.js",
+    "install-tts": "./scripts/setup-voice-system.sh",
+    "test-engines": "node scripts/test-tts-engines.js",
+    "voice-config": "node scripts/configure-voice.js",
+    "lightweight": "node examples/lightweight-demo.js",
+    "microphone": "node examples/microphone-demo.js",
+    "blockchain": "node examples/blockchain-precision-demo.js",
+    "blockchain-precision": "node examples/blockchain-precision-demo.js",
+    "soundwave": "node examples/blockchain-precision-demo.js",
+    "deploy:soundwave": "cd contracts && forge script contracts/deploy-soundwave.js",
+    "deploy:jaimla-vnft": "cd contracts && forge script script/DeployJaimlaVNFT.s.sol --broadcast",
+    "test:contracts": "cd contracts && forge test -vv",
+    "build:contracts": "cd contracts && forge build --sizes",
+    "vnft": "node examples/blockchain-precision-demo.js",
+    "vendor:mediapipe": "node scripts/vendor-mediapipe.mjs"
+  },
+  "keywords": [
+    "faicey",
+    "3d-face",
+    "voice-analysis",
+    "oscilloscope",
+    "frequency-analysis",
+    "inflection-detection",
+    "autonomous-agents",
+    "nft",
+    "jaimla",
+    "mindx",
+    "d3js",
+    "threejs",
+    "professor-codephreak"
+  ],
+  "dependencies": {
+    "@mediapipe/tasks-vision": "^0.10.35",
+    "@tensorflow/tfjs": "^4.22.0",
+    "audio-buffer": "^4.0.3",
+    "audio-buffer-utils": "^5.1.2",
+    "audio-context": "^1.0.3",
+    "audiomotion-analyzer": "^4.5.4",
+    "canvas": "^2.11.2",
+    "d3": "^7.9.0",
+    "d3-array": "^3.2.4",
+    "d3-axis": "^3.0.0",
+    "d3-scale": "^4.0.2",
+    "d3-selection": "^3.0.0",
+    "d3-shape": "^3.2.0",
+    "express": "^4.18.3",
+    "fft-js": "^0.0.12",
+    "fluent-ffmpeg": "^2.1.2",
+    "jsdom": "^24.0.0",
+    "meyda": "^5.6.0",
+    "ml-matrix": "^6.10.9",
+    "node-microphone": "^0.1.4",
+    "node-wav": "^0.0.2",
+    "pitch-detector": "^1.1.3",
+    "three": "^0.182.0",
+    "wav": "^1.0.2",
+    "wav-decoder": "^1.3.0",
+    "wav-encoder": "^1.3.0",
+    "web-audio-api": "^1.5.3",
+    "ws": "^8.16.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.2.1",
+    "eslint": "^8.57.0",
+    "jest": "^29.7.0",
+    "typescript": "^5.3.3",
+    "vite": "^6.4.2"
+  },
+  "overrides": {
+    "underscore": "^1.13.8",
+    "tar": "^7.5.16"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "author": "Professor Codephreak <rage.pythai.net>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Faicey/faicey.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Faicey/faicey/issues"
+  },
+  "homepage": "https://mindx.pythai.net/faicey",
+  "funding": {
+    "type": "patreon",
+    "url": "https://patreon.com/professor_codephreak"
+  }
+}
